@@ -14,36 +14,58 @@ define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/na
 
             self.failed = ko.observable(false);
             
-            self.userName = '';
-            self.password = '';
+            self.l_userName = '';
+            self.s_userName = '';
+            self.l_password = '';
+            self.s_password = '';
+            self.firstName = '';
+            self.lastName = '';
+            self.email = '';
+            self.address = '';
+            self.phone = '';
             
             self.submitLoginClick = function () {
                 serverWrapper
-                	.authenticate(self.userName, self.password)
-                	.success(self.onSuccess)
-                	.error(self.onFailure);
+                	.authenticate(self.l_userName, self.l_password)
+                	.success(self.onLoginSuccess)
+                	.error(self.onLoginFailure);
             };
             
             self.submitSignupClick = function () {
                 serverWrapper
-                	.authenticate(self.userName, self.password)
+                	.register(self.s_userName, self.s_password, self.firstName, self.lastName, self.email, self.address, self.phone)
                 	.success(self.onSuccess)
                 	.error(self.onFailure);
             };
 
-            self.onSuccess = function (result) {
+            self.onLoginSuccess = function (result) {
                 if (result && result.status == 1) {
                 	container.isLoggedIn = true;
                 	container.user = result.data;
                     callback();
                 }
                 else {
-                    self.onFailure();
+                    self.onLoginFailure();
                 }
             };
 
-            self.onFailure = function () {
-                self.failed(true);
+            self.onLoginFailure = function () {
+                self.loginFailed(true);
+            };
+            
+            self.onSignupSuccess = function (result) {
+                if (result && result.status == 1) {
+                	container.isLoggedIn = true;
+                	container.user = result.data;
+                    callback();
+                }
+                else {
+                    self.onSignupFailure();
+                }
+            };
+
+            self.onSignupFailure = function () {
+                self.signupFailed(true);
             };
         }
 

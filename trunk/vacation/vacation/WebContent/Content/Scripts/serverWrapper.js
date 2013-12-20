@@ -3,13 +3,29 @@ define(function () {
     return new function () {
         var wrapper = this;
 
-        wrapper.authenticate = function (useName, password) {
+        wrapper.authenticate = function (userName, password) {
             var data = {
+            	requestType: "login",
                 userName: userName,
                 password: password
             };
 
-            return wrapper.post('/AuthenticateServlet/auth', data);
+            return wrapper.post('/vacation/AuthenticateServlet', data);
+        };
+
+        wrapper.register = function (userName, password, firstName, lastName, email, address, phone) {
+            var data = {
+            	requestType: "register",
+                userName:  	userName,
+                password:  	password,
+                firstName: 	firstName, 
+                lastName:  	lastName,
+                email: 		email,
+                address: 	address,
+                phone: 		phone
+            };
+
+            return wrapper.post('/vacation/AuthenticateServlet', data);
         };
 
         wrapper.userBookings = function (userID) {
