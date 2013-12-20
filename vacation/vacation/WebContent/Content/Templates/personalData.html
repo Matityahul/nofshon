@@ -1,0 +1,24 @@
+<div id="personalData">
+    <h2>Personal Data</h2>
+    <div>
+        <span data-bind="text: 'Name: ' + name()"></span>
+    </div>
+    <div>
+        <span data-bind="text: 'Email: ' + email()"></span>
+    </div>
+    <div>
+        <span data-bind="text: 'Registration Date: ' + registrationDate()"></span>
+    </div>
+    <div>
+        <span data-bind="text: 'Address: ' + address()"></span>
+    </div>
+    <div>
+        <span data-bind="text: 'Total money paid: ' + totalCost() + '$'"></span>
+    </div>
+    <div>
+        <input type="button" class="actionButton" value="Bookings" data-bind="click: bookingsClick" />
+    </div>
+    <div>
+        <span data-bind="visible: failed()">Failed to load user's bookings</span>
+    </div>
+</div>

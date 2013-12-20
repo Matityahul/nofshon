@@ -1,0 +1,20 @@
+#authentication {
+    padding-top: 40px;
+}
+
+    #authentication h1 {
+        margin-bottom: 20px;
+    }
+
+    #authentication h4 {
+        margin-bottom: 20px;
+        font-weight: normal;
+    }
+
+    #authentication input {
+        color: black;
+    }
+
+    #authentication .actionButton {
+        margin-top: 20px;
+    }
