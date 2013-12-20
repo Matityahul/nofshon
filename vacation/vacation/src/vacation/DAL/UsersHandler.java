@@ -24,7 +24,7 @@ public class UsersHandler {
 	/**
 	 * Add user to the DB
 	 */
-	public void AddUser(User user)
+	public static void AddUser(User user)
 	{
 		Connection conn = DBConn.getConnection();
 		
@@ -51,7 +51,7 @@ public class UsersHandler {
 	/**
 	 * Update the given user in the DB
 	 */
-	public void UpdateUser(User user)
+	public static void UpdateUser(User user)
 	{
 		Connection conn = DBConn.getConnection();
 		
@@ -77,7 +77,7 @@ public class UsersHandler {
 	/**
 	 * Delete the given user from the DB
 	 */
-	public int DeleteUser(User user)
+	public static int DeleteUser(User user)
 	{
 		int rows = OrdersHandler.DeleteOrdersByUserID(user.get_id());
 		
