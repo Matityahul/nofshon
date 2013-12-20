@@ -1,0 +1,9 @@
+#personalData {
+    padding-top: 20px;
+}
+
+    #personalData span,
+    #personalData input {
+        margin-top: 15px;
+        display: inline-block;
+    }

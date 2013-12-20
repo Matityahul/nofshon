@@ -1,0 +1,54 @@
+<script type="text/javascript">
+$("#login").submit(function() {
+	$("#test").click();
+	return false;
+});
+
+$("#signup").submit(function() {
+	$("#test2").click();
+	return false;
+});
+</script>
+
+<div id="authentication">
+	<div id="Login">
+	    <h1>Login</h1>
+	    <form id="login" name="login" method="post" accept-charset="utf-8">
+		    <div>
+		        <input id="userName" placeholder="user name" name="userName" data-bind="value: userName" type="text" required="required" />
+		    </div>
+		    <div>
+		        <input id="password" placeholder="Password" name="password" data-bind="value: password" type="password" required="required" />
+		    </div>
+		    <div>
+		        <span data-bind="visible: failed()">Failed to authenticate user</span>
+		    </div>
+        	<input type="submit" class="actionButton" value="Login" >
+        	<input id="test" type="hidden" data-bind="click: submitLoginClick" />
+		</form>
+	</div>
+	<div id="signUp">
+	    <h1>Sign Up</h1>
+	    <form id="signup" name="register" method="post" accept-charset="utf-8">
+			<div>
+				<input type="text" id="u_0_0" placeholder="First Name" required="required">
+			</div>
+			<div>
+				<input type="text" id="u_0_1" placeholder="Last Name" required="required">
+			</div>
+			<div>
+				<input type="text" id="u_0_2" placeholder="User Name" required="required">
+			</div>
+		    <div>
+		    	<input type="email" id="u_0_3" placeholder="Your Email" required="required">
+		    </div>
+		    <div>
+		    	<input type="password" id="u_0_5" placeholder="New Password" required="required">
+		    </div>
+		    <input type="submit" class="actionButton" value="Sign Up">
+		    <input id="test2" type="hidden" data-bind="click: submitSignupClick" />
+	    </form>
+	  </div>
+</div>
+
+

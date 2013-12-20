@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Nofshon</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="/vacation/Content/Styles/home.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/vacation/Content/Scripts/Curl/curl.js"></script>
+    <script type="text/javascript">
+        curl({
+            baseUrl: '/vacation/Content',
+            pluginPath: 'Scripts/Curl',
+            paths: {
+                'js': 'Scripts',
+                'html': 'Templates',
+                'styles': 'Styles',
+                'knockoutjslib': '/vacation/Content/Scripts/Lib/knockout-2.3.0.min.js',
+                'knockoutjs': '/vacation/Content/Scripts/Lib/knockoutjsWrapper'
+            }
+        });
+        var menuPresenterPromise = curl(['js/menu']);
+        $(function () {
+            $("html, body").animate({ scrollTop: $(document).height() }, 100);
+            menuPresenterPromise.then(function (menuPresenter) {
+                menuPresenter.bind();
+            });
+        })
+    </script>
+</head>
+<body>
+    <div>
+    	<div id="menu">
+            <ul>
+                <li>
+                    <div class="search" data-bind="click: search">
+                    	<img src="/vacation/Content/Images/searchIcon.png" />
+                    </div>
+                </li>
+                <li>
+                    <div class="personalData" data-bind="click: personalData">
+                    	<img src="/vacation/Content/Images/personIcon.png" />
+                    </div>
+                </li>
+                <li>
+                    <div class="about" data-bind="click: about">
+                    	<img src="/vacation/Content/Images/aboutIcon.png" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+        </div>
+    </div>
+</body>
+</html>
