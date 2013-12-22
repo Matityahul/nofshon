@@ -1,0 +1,36 @@
+<div id="orders">
+    <h2>Orders</h2>
+    <h3 data-bind="visible: orders().length == 0">You have no orders!</h3>
+    <ul data-bind="foreach: orders()">
+        <li>
+            <div>
+                <span data-bind="click: orderClick, text: date()" class="actionButton"></span>
+            </div>
+            <ul  data-bind="slideVisible: expanded(), foreach: bookings()" class="order">
+                <li>
+                    <div>
+                        <span data-bind="text: 'Name: ' + name()"></span>
+                    </div>
+                    <div>
+                        <span data-bind="text: 'Passport: ' + passport()"></span>
+                    </div>
+                    <div>
+                        <span data-bind="text: '# Nights: ' + nights()"></span>
+                    </div>
+                    <div>
+                        <span data-bind="text: 'Departure time: ' + departFlight().flightTime()"></span>
+                    </div>
+                    <div>
+                        <span data-bind="text: 'Return time: ' + returnFlight().flightTime()"></span>
+                    </div>
+                    <div>
+                        <span data-bind="text: 'Hotel: ' + hotel().hotelName()"></span>
+                    </div>
+                    <div>
+                        <span data-bind="text: 'Cost: ' + totalCost() + '$'"></span>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

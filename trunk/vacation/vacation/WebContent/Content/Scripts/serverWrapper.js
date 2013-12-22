@@ -27,13 +27,13 @@ define(function () {
 
             return wrapper.post('/vacation/AuthenticateServlet', data);
         };
-
-        wrapper.userBookings = function (userID) {
+        
+       /* wrapper.userTotalCost = function (userID) {
             var data = {
                 uid: userID
             };
 
-            return wrapper.get('/BookingServlet/getbooking', data);
+            return wrapper.get('/vacation/BookingServlet/getcost', data);
         };
 
         wrapper.bookFlight = function (booking) {
@@ -56,33 +56,49 @@ define(function () {
                 });
             }
 
-            return wrapper.post('/BookingServlet/makebooking', JSON.stringify(data));
+            return wrapper.post('/vacation/BookingServlet/makebooking', JSON.stringify(data));
         };
+        
+        */
 
-        wrapper.bookingTickets = function (bookingId) {
+        wrapper.userOrders = function (userID) {
             var data = {
-                bid: bookingId
+            	requestType: "getOrders",
+                userId: userID
             };
 
-            return wrapper.get('/BookingServlet/gettickets', data);
+            return wrapper.get('/vacation/OrderServlet', data);
         };
-
-        wrapper.bookingSeats = function (bookingId) {
+        
+        wrapper.orderBookings = function (orderId) {
             var data = {
-                bid: bookingId
+            	requestType: "getBookings",
+                orderId: orderId
             };
 
-            return wrapper.get('/BookingServlet/getseats', data);
+            return wrapper.get('/vacation/OrderServlet', data);
         };
 
-        wrapper.userTotalCost = function (userID) {
+        wrapper.orderFlights = function (orderId) {
             var data = {
-                uid: userID
+            	requestType: "getFlights",
+                orderId: orderId
             };
 
-            return wrapper.get('/BookingServlet/getcost', data);
+            return wrapper.get('/vacation/OrderServlet', data);
+        };
+        
+        wrapper.orderHotels = function (orderId) {
+            var data = {
+            	requestType: "getHotels",
+                orderId: orderId
+            };
+
+            return wrapper.get('/vacation/OrderServlet', data);
         };
 
+        /*
+        
         wrapper.search = function (source, destination, departure, maxCost) {
             var data = {
                 start: departure == '' ? undefined : departure,
@@ -91,11 +107,11 @@ define(function () {
                 maxcost: maxCost
             };
 
-            return wrapper.get('/FlightServlet/qparams0', data);
+            return wrapper.get('/vacation/FlightServlet/qparams0', data);
         };
 
         wrapper.getAllDestinations = function () {
-            return wrapper.get('/FlightServlet/dest');
+            return wrapper.get('/vacation/FlightServlet/dest');
         };
 
         wrapper.getSeatsForFlight = function (flightId) {
@@ -103,8 +119,10 @@ define(function () {
                 fid: flightId
             };
 
-            return wrapper.get('/FlightSeatServlet/get', data);
-        },
+            return wrapper.get('/vacation/FlightSeatServlet/get', data);
+        };
+
+		*/
 
         wrapper.get = function (url, data) {
             return wrapper.ajax(url, data, 'GET');

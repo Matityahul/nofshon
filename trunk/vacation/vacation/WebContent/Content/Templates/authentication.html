@@ -1,4 +1,6 @@
 <script type="text/javascript">
+// Submit through jquery because we want the the automatic html5 validation
+// and after this send the data to the server by ajax
 $("#login").submit(function() {
 	$("#hiddenLogin").click();
 	return false;

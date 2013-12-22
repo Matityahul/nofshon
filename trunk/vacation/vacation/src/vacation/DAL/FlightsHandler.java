@@ -1,6 +1,7 @@
 package vacation.DAL;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -138,6 +139,28 @@ public class FlightsHandler {
 			
 			Flight flight = new Flight(flight_id, airline_id, cost, from_airport, to_airport, departure_time, arrival_time);
 			flights.add(flight);
+		}
+		
+		return flights;
+	}
+
+
+	public static List<Flight> GetFlightsByOrder(int orderID) {
+		List<Flight> flights = new ArrayList<Flight>();
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT distinct f.* " +
+					 "FROM flights f JOIN bookings b ON (f.ID = b.Depart_Flight_ID OR f.ID = b.Return_Flight_ID) " +
+					 "WHERE b.Order_ID = ?";
+		
+		try (java.sql.PreparedStatement st = conn.prepareStatement(sql)) 
+		{
+			st.clearParameters();
+			st.setInt(1,orderID);
+			ResultSet rs = st.executeQuery();
+			flights = extractFlightsFromRS(rs);
+		} 
+		catch (SQLException ex) {
+			System.err.println(ex.getMessage());
 		}
 		
 		return flights;

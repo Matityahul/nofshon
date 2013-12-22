@@ -12,28 +12,29 @@ define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/na
         function viewModel(callback) {
             var self = this;
 
-            self.failed = ko.observable(false);
+            self.loginFailed = ko.observable(false);
+            self.signupFailed = ko.observable(false);
             
-            self.l_userName = '';
-            self.s_userName = '';
-            self.l_password = '';
-            self.s_password = '';
-            self.firstName = '';
-            self.lastName = '';
-            self.email = '';
-            self.address = '';
-            self.phone = '';
+            self.l_userName = ko.observable('Lior1989');
+            self.s_userName = ko.observable('');
+            self.l_password = ko.observable('123456');
+            self.s_password = ko.observable('');
+            self.firstName = ko.observable('');
+            self.lastName = ko.observable('');
+            self.email = ko.observable('');
+            self.address = ko.observable('');
+            self.phone = ko.observable('');
             
             self.submitLoginClick = function () {
                 serverWrapper
-                	.authenticate(self.l_userName, self.l_password)
+                	.authenticate(self.l_userName(), self.l_password())
                 	.success(self.onLoginSuccess)
                 	.error(self.onLoginFailure);
             };
             
             self.submitSignupClick = function () {
                 serverWrapper
-                	.register(self.s_userName, self.s_password, self.firstName, self.lastName, self.email, self.address, self.phone)
+                	.register(self.s_userName(), self.s_password(), self.firstName(), self.lastName(), self.email(), self.address(), self.phone())
                 	.success(self.onSuccess)
                 	.error(self.onFailure);
             };
