@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import vacation.model.Flight;
 import vacation.model.Hotel;
 
 public class HotelsHandler {
@@ -139,6 +140,28 @@ public class HotelsHandler {
 			Hotel hotel = new Hotel(hotel_id, city_id, hotel_name, hotel_address, hotel_phone, hotel_cost);
 			
 			hotels.add(hotel);
+		}
+		
+		return hotels;
+	}
+
+
+	public static List<Hotel> GetHotelsByOrder(int orderID) {
+		List<Hotel> hotels = new ArrayList<Hotel>();
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT distinct h.* " +
+					 "FROM hotels h JOIN bookings b ON h.ID = b.Hotel_ID " +
+					 "WHERE b.Order_ID = ?";
+		
+		try (java.sql.PreparedStatement st = conn.prepareStatement(sql)) 
+		{
+			st.clearParameters();
+			st.setInt(1,orderID);
+			ResultSet rs = st.executeQuery();
+			hotels = extractHotelsFromRS(rs);
+		} 
+		catch (SQLException ex) {
+			System.err.println(ex.getMessage());
 		}
 		
 		return hotels;

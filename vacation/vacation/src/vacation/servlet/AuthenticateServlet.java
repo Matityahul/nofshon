@@ -38,14 +38,14 @@ public class AuthenticateServlet extends HttpServlet {
 		response.setContentType( "text/html" );
 		PrintWriter writer = response.getWriter();
 		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
 		String requestType = request.getParameter("requestType");
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		
 		if (requestType.compareTo("login") == 0)
 		{
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			
 			User user = null;
 			
 			try 
@@ -87,7 +87,11 @@ public class AuthenticateServlet extends HttpServlet {
 			catch(Exception ex)
 			{
 				ex.printStackTrace();
+				
+				writer.print("{\"status\":0, \"data\":" +gson.toJson(newUser) + "}");
 			}
+			
+			writer.print("{\"status\":1, \"data\":" +gson.toJson(newUser) + "}");
 		}
 	}
 
