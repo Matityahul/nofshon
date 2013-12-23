@@ -25,6 +25,11 @@
             menuPresenterPromise.then(function (menuPresenter) {
                 menuPresenter.bind();
             });
+            
+            $('#menu li').click(function() {
+            	$("#menu li").removeClass('selected');
+            	$(this).addClass('selected');
+            });
         })
     </script>
 </head>
