@@ -35,8 +35,8 @@ define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/na
             self.submitSignupClick = function () {
                 serverWrapper
                 	.register(self.s_userName(), self.s_password(), self.firstName(), self.lastName(), self.email(), self.address(), self.phone())
-                	.success(self.onSuccess)
-                	.error(self.onFailure);
+                	.success(self.onSignupSuccess)
+                	.error(self.onSignupFailure);
             };
 
             self.onLoginSuccess = function (result) {
