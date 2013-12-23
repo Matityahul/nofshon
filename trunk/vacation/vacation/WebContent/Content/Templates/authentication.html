@@ -13,45 +13,34 @@ $("#signup").submit(function() {
 </script>
 
 <div id="authentication">
-	<div id="Login">
-	    <h1>Login</h1>
+	<div id="Login" class="authenticationSection">
 	    <form id="login" name="login" method="post" accept-charset="utf-8">
-		    <div>
 		        <input id="l_userName" placeholder="user name" name="userName" data-bind="value: l_userName" type="text" required="required" />
-		    </div>
-		    <div>
 		        <input id="l_password" placeholder="Password" name="password" data-bind="value: l_password" type="password" required="required" />
-		    </div>
+		    	<input type="submit" class="actionButton" value="Login" >
 		    <div>
 		        <span data-bind="visible: loginFailed()">Failed to login</span>
 		    </div>
-        	<input type="submit" class="actionButton" value="Login" >
+        	
         	<input id="hiddenLogin" type="hidden" data-bind="click: submitLoginClick" />
 		</form>
 	</div>
-	<div id="signUp">
-	    <h1>Sign Up</h1>
+	<div id="signUp" class="authenticationSection">
 	    <form id="signup" name="register" method="post" accept-charset="utf-8">
 			<div>
 				<input type="text" id="firstName" placeholder="First Name" data-bind="value: firstName" required="required">
-			</div>
-			<div>
 				<input type="text" id="lastName" placeholder="Last Name" data-bind="value: lastName" required="required">
 			</div>
 			<div>
 				<input type="text" id="s_userName" placeholder="User Name" data-bind="value: s_userName" required="required">
-			</div>
-			<div>
 		    	<input type="password" id="s_password" placeholder="New Password" data-bind="value: s_password" required="required">
 		    </div>
 		    <div>
 		    	<input type="email" id="email" placeholder="Email" data-bind="value: email" required="required">
+		    	<input type="tel" id="phone" placeholder="Phone" data-bind="value: phone" required="required">
 		    </div>
 		    <div>
 		    	<input type="text" id="address" placeholder="Address" data-bind="value: address" required="required">
-		    </div>
-		    <div>
-		    	<input type="tel" id="phone" placeholder="Phone" data-bind="value: phone" required="required">
 		    </div>
 		    <div>
 		        <span data-bind="visible: signupFailed()">Failed to sign up</span>
