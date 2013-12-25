@@ -104,7 +104,7 @@ define(function () {
             	searchtype: "flight",
                 start: departure == '' ? undefined : departure,
                 fromairport: source,
-                toirport: destination,
+                toairport: destination,
                 topcost: maxCost
             };
 
