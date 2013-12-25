@@ -27,7 +27,7 @@ define(['text!html/search.html', 'text!html/searchResults.html', 'css!styles/sea
                 };
 
                 serverWrapper
-                    .search(self.source(), self.destination(), self.departure(), self.maxCost())
+                    .search(self.source()._id, self.destination(), self.departure(), self.maxCost())
                     .success(function (result) {
                         if (!result || result.length == 0) return onFailure();
                         navigation.load('searchResults', searchResultsTemplate, new resultsViewModel(result));

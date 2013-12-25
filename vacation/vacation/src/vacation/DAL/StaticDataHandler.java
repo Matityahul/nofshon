@@ -42,6 +42,27 @@ public class StaticDataHandler {
 		return countries;
 	}
 	
+	public static Airport GetAirportByID(int id)
+	{
+		Airport airport = null;
+		
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT * FROM airports where id = ?";
+		
+		try (PreparedStatement st = conn.prepareStatement(sql)) {
+			st.clearParameters();
+			st.setInt(1, id);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			airport =new Airport(rs.getInt("ID"),
+					rs.getInt("City_ID"), rs.getString("Name"));
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+		
+		return airport;
+	}
+	
 	/**
 	 * Get all the airports from the DB
 	 * @return All the airports
