@@ -33,6 +33,44 @@ public class FlightsHandler {
 		return Flights;
 	}
 	
+	public static String GetAirlineNameByID(int id)
+	{
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT Name FROM airlines where id = ?";
+		String name = "";
+		
+		try (PreparedStatement st = conn.prepareStatement(sql)) {
+			st.clearParameters();
+			st.setInt(1,id);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			name = rs.getString("Name");
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+		
+		return name;
+	}
+	
+	public static String GetAirportNameByID(int id)
+	{
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT Name FROM airports where id = ?";
+		String name = "";
+		
+		try (PreparedStatement st = conn.prepareStatement(sql)) {
+			st.clearParameters();
+			st.setInt(1,id);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			name = rs.getString("Name");
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+		
+		return name;
+	}
+	
 	
 	/**
 	 * Get filtered flights from the DB
@@ -43,7 +81,7 @@ public class FlightsHandler {
 	{
 		List<Flight> Flights = new ArrayList<Flight>();
 		Connection conn = DBConn.getConnection();
-		String sql = "SELECT distinct f.* FROM flight f WHERE 1=1";
+		String sql = "SELECT distinct f.* FROM flights f WHERE 1=1";
 		
 		int    startDatePos =0;
 		int    endDatePos =0;

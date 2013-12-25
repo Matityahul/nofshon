@@ -1,0 +1,39 @@
+#search {
+    padding-top: 20px;
+}
+
+    #search h3,
+    #search .actionButton {
+        margin-top: 20px;
+    }
+
+    #search .actionButton {
+        margin-bottom: 10px;
+    }
+
+    #search select,
+    #search option,
+    #search input {
+        color: black;
+    }
+
+#searchResults {
+    padding-top: 20px;
+}
+
+    #searchResults .flights {
+        list-style-type: none;
+    }
+
+        #searchResults .flights > li {
+            margin: 5px 0;
+            border-top: 1px solid white;
+        }
+
+            #searchResults .flights > li:last-child {
+                border-bottom: 1px solid white;
+            }
+
+    #searchResults .seats .actionButton {
+        margin-top: 3px;
+    }

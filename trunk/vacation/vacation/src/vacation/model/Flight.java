@@ -2,6 +2,8 @@ package vacation.model;
 
 import java.util.Date;
 
+import vacation.DAL.FlightsHandler;
+
 public class Flight {
         int _id;
         Date _departure_time;
@@ -10,6 +12,9 @@ public class Flight {
         int _cost;
         int _from_airport;
         int _to_airport;
+        String _name;
+        String _depart_name;
+        String _arrival_name;
         
         
         
@@ -25,6 +30,9 @@ public class Flight {
                 _to_airport = to_airport;
                 _departure_time = departure_time2;
                 _arrival_time = arrival_time2;
+                _name = FlightsHandler.GetAirlineNameByID(airline_id);
+                _depart_name = FlightsHandler.GetAirportNameByID(from_airport);
+                _arrival_name = FlightsHandler.GetAirportNameByID(to_airport);
         }
         
         public int get_id() {
@@ -60,6 +68,7 @@ public class Flight {
         public Date get_arrival_time() {
                 return _arrival_time;
         }
+        
 
         
         

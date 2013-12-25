@@ -97,23 +97,22 @@ define(function () {
             return wrapper.get('/vacation/OrderServlet', data);
         };
 
-        /*
+        
         
         wrapper.search = function (source, destination, departure, maxCost) {
             var data = {
+            	searchtype: "flight",
                 start: departure == '' ? undefined : departure,
-                depart: source,
-                arrive: destination,
-                maxcost: maxCost
+                fromairport: source,
+                toirport: destination,
+                topcost: maxCost
             };
 
-            return wrapper.get('/vacation/FlightServlet/qparams0', data);
+            return wrapper.get('/vacation/Search', data);
         };
 
-        wrapper.getAllDestinations = function () {
-            return wrapper.get('/vacation/FlightServlet/dest');
-        };
-
+        /*
+        
         wrapper.getSeatsForFlight = function (flightId) {
             var data = {
                 fid: flightId
@@ -123,7 +122,15 @@ define(function () {
         };
 
 		*/
+        
+        wrapper.getAllDestinations = function () {
+            var data = {
+            	info: "AllDestinations",
+            };
 
+            return wrapper.get('/vacation/StaticInfoServlet', data);
+        };
+        
         wrapper.get = function (url, data) {
             return wrapper.ajax(url, data, 'GET');
         };

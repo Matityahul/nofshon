@@ -43,7 +43,7 @@ public class Search extends HttpServlet {
 		
 		String searchType = request.getParameter("searchtype");
 		
-        out.println("<HEAD><TITLE>Vacation servlet test</TITLE></HEAD><BODY>");
+       //out.println("<HEAD><TITLE>Vacation servlet test</TITLE></HEAD><BODY>");
         
 		try
 		{
@@ -67,12 +67,12 @@ public class Search extends HttpServlet {
 				{
 					startDate = Date.valueOf(start);
 				}
-				if (start != null && end != "")
+				if (end != null && end != "")
 				{
 					endDate = Date.valueOf(end);
 				}
 				
-				if (bottomCost != null && bottomCost != "")
+				if (fromAirport != null && fromAirport != "")
 				{
 					from = Integer.parseInt(fromAirport);
 				}
@@ -94,7 +94,7 @@ public class Search extends HttpServlet {
 				
 				List<Flight> flights = FlightsHandler.GetFilterdFlights(startDate, endDate, from, to, min, max);
 				
-				out.println("<h1>Search results:</h1><br>");
+				//out.println("<h1>Search results:</h1><br>");
 		        out.println(gson.toJson(flights));
 			}
 			else if (searchType.compareTo("hotel") == 0)
@@ -135,7 +135,7 @@ public class Search extends HttpServlet {
 		}
 		finally
 		{
-	        out.println("</BODY>");
+	        //out.println("</BODY>");
 	        out.close();
 		}
 	}

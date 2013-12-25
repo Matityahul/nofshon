@@ -1,7 +1,7 @@
 define(['text!html/home.html', 'js/navigation', 'knockoutjs'], function (template, navigation, ko) {
     return new function () {
         var container = this;
-        var searchContainerPromise = curl('js/search');
+        var searchContainerPromise = curl('js/flightSearch');
         var personalDataContainerPromise = curl('js/personalData');
         var aboutContainerPromise = curl('js/about');
 
@@ -24,6 +24,7 @@ define(['text!html/home.html', 'js/navigation', 'knockoutjs'], function (templat
                     aboutContainer.bind();
                 });
             };
+           
         }
 
         container.bind = function () {
