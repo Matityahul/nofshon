@@ -1,7 +1,7 @@
 define(['text!html/search.html', 'text!html/searchResults.html', 'css!styles/search.css', 'js/navigation', 'js/authentication', 'js/serverWrapper', 'knockoutjs'], function (searchTemplate, searchResultsTemplate, _style, navigation, authentication, serverWrapper, ko) {
     return new function () {
         var presenter = this;
-        var destinationsPromise = serverWrapper.getAllDestinations();
+        var allDestinations = serverWrapper.getAllDestinations();
         var lastSearch = new searchViewModel();
 
         function searchViewModel() {
@@ -14,7 +14,7 @@ define(['text!html/search.html', 'text!html/searchResults.html', 'css!styles/sea
             self.failed = ko.observable(false);
             self.destinations = ko.observableArray();
 
-            $.when(destinationsPromise).then(function (desinations) {
+            $.when(allDestinations).then(function (desinations) {
                 if (!desinations) return;
                 for (var i = 0; i < desinations.length; ++i) {
                     self.destinations.push(desinations[i]);
@@ -26,8 +26,20 @@ define(['text!html/search.html', 'text!html/searchResults.html', 'css!styles/sea
                     self.failed(true);
                 };
 
+                var d = undefined;
+                var s = undefined;
+                if(self.source() != undefined) 
+                { 
+                	d = self.source()._id;
+                }
+                if (self.destination() != undefined)
+                {
+                	s = self.destination()._id;
+                }
+                	
+                
                 serverWrapper
-                    .search(self.source()._id, self.destination(), self.departure(), self.maxCost())
+                    .search(d, s, self.departure(), self.maxCost())
                     .success(function (result) {
                         if (!result || result.length == 0) return onFailure();
                         navigation.load('searchResults', searchResultsTemplate, new resultsViewModel(result));
@@ -56,10 +68,10 @@ define(['text!html/search.html', 'text!html/searchResults.html', 'css!styles/sea
             self.emptyFlight = $.Callbacks();
             self.flightId = ko.observable(result._id);
             self.airline = ko.observable(result._name);
-            //self.flightNumber = ko.observable(result.flight_number);
             self.departAirport = ko.observable(result._depart_name);
             self.arrivalAirport = ko.observable(result._arrival_name);
             self.departDate = ko.observable(result._departure_time);
+            self.cost = ko.observable(result._cost);
             self.isExpanded = ko.observable(false);
         };
         
