@@ -20,6 +20,7 @@ import vacation.DAL.FlightsHandler;
 import vacation.DAL.HotelsHandler;
 import vacation.DAL.OrdersHandler;
 import vacation.DAL.StaticDataHandler;
+import vacation.model.Airport;
 import vacation.model.Booking;
 import vacation.model.Flight;
 import vacation.model.Hotel;
@@ -55,6 +56,7 @@ public class StaticInfoServlet extends HttpServlet {
 		if (requestType.compareTo("AllDestinations") == 0)
 		{
 			ArrayList<String> src = new ArrayList<String>();
+			ArrayList<Airport> src2 = new ArrayList<Airport>();
 			List<Flight> flights = new ArrayList<Flight>();;
 			try 
 			{
@@ -67,12 +69,16 @@ public class StaticInfoServlet extends HttpServlet {
 			for (Flight flight : flights) {
 				int fromAirport = flight.get_from_airport();
 				String fromAirportName = StaticDataHandler.GetAirportNameByID(fromAirport);
+				Airport currAirport = StaticDataHandler.GetAirportByID(fromAirport);
+
 				if (!src.contains(fromAirportName))
 				{
 					src.add(fromAirportName);
+					src2.add(currAirport);
 				}
 			}
-			writer.print(gson.toJson(src));
+			writer.print(gson.toJson(src2));
+			//writer.print(gson.toJson(src));
 		}
     }
 

@@ -27,4 +27,9 @@ public class Airport {
         public String getName() {
                 return _name;
         }
+        
+        public String toString()
+        {
+        	return _name;
+        }
 }
