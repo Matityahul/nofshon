@@ -1,0 +1,29 @@
+<div id="search">
+    <h2>1) Search for flight
+    </h2>
+    <div>
+        <div>
+            <select data-bind="options: destinations(), value: source, optionsCaption: 'Depart from...'">
+                <option data-bind="text: $data, attr: { value: $data }"></option>
+            </select>
+            <span>To</span>
+            <select data-bind="options: destinations(), value: destination, optionsCaption: 'Arrive to...'">
+                <option data-bind="text: $data, attr: { value: $data }"></option>
+            </select>
+        </div>
+        <h3>Departure date from:
+        </h3>
+        <div>
+            <input data-bind="value: departure" type="date" />
+        </div>
+        <h3>Maximum cost:
+        </h3>
+        <div>
+            <input data-bind="value: maxCost" type="tel" />
+        </div>
+    </div>
+    <input data-bind="click: search" type="button" class="actionButton" value="Search" />
+    <div>
+        <span data-bind="visible: failed()">Search returned 0 results.</span>
+    </div>
+</div>

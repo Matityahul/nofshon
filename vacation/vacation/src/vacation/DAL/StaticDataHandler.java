@@ -46,7 +46,7 @@ public class StaticDataHandler {
 	 * Get all the airports from the DB
 	 * @return All the airports
 	 */
-	public List<Airport> GetAllAirports()
+	public static List<Airport> GetAllAirports()
 	{
 		List<Airport> airports = new ArrayList<Airport>();
 		Connection conn = DBConn.getConnection();
@@ -116,6 +116,18 @@ public class StaticDataHandler {
 		
 		
 		return -1;
+	}
+	
+	public static String GetAirportNameByID(int id)
+	{
+		List<Airport> airports = GetAllAirports();
+		for (int i = 0; i < airports.size(); i++)
+		{
+			if (airports.get(i).get_id() == id)
+				return airports.get(i).getName();
+		}
+		
+		return "";
 	}
 	
 	public static void BuildDB()
@@ -216,13 +228,13 @@ public class StaticDataHandler {
 				  " `Arrival_Time` datetime DEFAULT NULL, \r\n" +
 				  " `From_Airport` int(11) DEFAULT NULL, \r\n" +
 				  " `To_Airport` int(11) DEFAULT NULL, \r\n" +
-				  " `Aireline_ID` int(11) DEFAULT NULL, \r\n" +
+				  " `Airline_ID` int(11) DEFAULT NULL, \r\n" +
 				  " `Cost` int(11) DEFAULT NULL, \r\n" +
 				  "PRIMARY KEY (`ID`), \r\n" +
-				  "KEY `FK_Flights_Airlines` (`Aireline_ID`), \r\n" +
+				  "KEY `FK_Flights_Airlines` (`Airline_ID`), \r\n" +
 				  "KEY `FK_flights_airports_From` (`From_Airport`), \r\n" +
 				  "KEY `FK_flights_airports_to` (`To_Airport`), \r\n" +
-				  "CONSTRAINT `FK_Flights_Airlines` FOREIGN KEY (`Aireline_ID`) REFERENCES `airlines` (`ID`), \r\n" +
+				  "CONSTRAINT `FK_Flights_Airlines` FOREIGN KEY (`Airline_ID`) REFERENCES `airlines` (`ID`), \r\n" +
 				  "CONSTRAINT `FK_flights_airports_From` FOREIGN KEY (`From_Airport`) REFERENCES `airports` (`ID`), \r\n" +
 				  "CONSTRAINT `FK_flights_airports_to` FOREIGN KEY (`To_Airport`) REFERENCES `airports` (`ID`) \r\n" +
 				") ENGINE=InnoDB DEFAULT CHARSET=hebrew; \r\n" +
@@ -429,20 +441,14 @@ public class StaticDataHandler {
 	
 	public static void InitData()
 	{
-		String script = "#Users \r\n" +
-						"#====== \r\n" +
+		String script = 
 						"insert into users values (1, 'Lior1989', '123456', CURRENT_DATE(), 'Lior', 'Yaffe', 'Bialik 96 Ramat-Gan', 'lieo@walla.co.il', '0501234567'); \r\n" +
 						"insert into users values (2, 'LiorMa', 'Aa123456', CURRENT_DATE(), 'Lior', 'Matityahu', 'Petach-Tikva', 'lala@gmail.com', '05098721234'); \r\n" +
 						
-						"#Payment_Methods \r\n" +
-						"#============ \r\n" +
 						"insert into payment_methods value (1, 'Credit card'); \r\n" +
-						"insert into countries values(1,'USA'); \r\n" +
 						"insert into payment_methods value (2, 'Cash'); \r\n" +
 						"insert into payment_methods value (3, 'Paypal'); \r\n" +
 						
-						"#Countries \r\n" +
-						"#============ \r\n" +
 						"insert into countries values(1,'USA'); \r\n" +
 						"insert into countries values(2,'Israel'); \r\n" +
 						"insert into countries values(3,'Italy'); \r\n" +
@@ -454,8 +460,6 @@ public class StaticDataHandler {
 						"insert into countries values(9,'Mexico'); \r\n" +
 						"insert into countries values(10,'Japan'); \r\n" +
 						
-						"#Cities \r\n" +
-						"#=========== \r\n" +
 						"insert into cities values(1,1,'New-York'); \r\n" +
 						"insert into cities values(2,1,'Boston'); \r\n" +
 						"insert into cities values(3,2,'Tel-Aviv'); \r\n" +
@@ -469,42 +473,31 @@ public class StaticDataHandler {
 						"insert into cities values(11,8,'Barcelona'); \r\n" + 
 						"insert into cities values(12,9,'Mexico City'); \r\n" +
 						"insert into cities values(13,10,'Tokyo'); \r\n" +
-						
-						"#Hotels \r\n" +
-						"#============ \r\n" +
+
 						"insert into hotels values (1,'Holiday Inn', 3, 'Hayarkon 92', '03-5812342',300); \r\n" +
 						"insert into hotels values (2,'Sheraton', 3, 'Tel-Aviv', '03-23024245', 370); \r\n" +
 						"insert into hotels values (3, 'Crowne Plaza Berlin',6,'Berlin', '329342842', 450); \r\n" +
 						
-						
-						"#Airports \r\n" +
-						"#=========== \r\n" +
+					
 						"insert into airports values(1,3,'Ben-Gurion airport'); \r\n" +
 						"insert into airports values(2,1,'JFK airport'); \r\n" +
 						
-						"#Airlines \r\n" +
-						"#============ \r\n" +
 						"insert into airlines values (1,'El-AL'); \r\n" +
 						"insert into airlines values (2,'Delta'); \r\n" + 
 						"insert into airlines values (3,'Alitalia'); \r\n" +
 						"insert into airlines values (4,'Air France'); \r\n" +
 						
-						"#Flights \r\n" +
-						"#============ \r\n" +
 						"insert into flights values(1,STR_TO_DATE('2-12-2013', '%d-%m-%Y'), STR_TO_DATE('3-12-2013', '%d-%m-%Y'),1,2,1,950); \r\n" +
 						"insert into flights values(2,STR_TO_DATE('9-12-2013', '%d-%m-%Y'), STR_TO_DATE('10-12-2013', '%d-%m-%Y'),2,1,1,950);  \r\n" +
 						"insert into flights values(3,STR_TO_DATE('4-12-2013', '%d-%m-%Y'), STR_TO_DATE('4-12-2013', '%d-%m-%Y'),1,2,2,800); \r\n" + 
 						"insert into flights values(4,STR_TO_DATE('10-12-2013', '%d-%m-%Y'), STR_TO_DATE('11-12-2013', '%d-%m-%Y'),2,1,2,800); \r\n" +
 						
-						"#Orders \r\n" +
-						"#============= \r\n" +
+
 						"insert into orders values(1,1,3,STR_TO_DATE('30-11-2013', '%d-%m-%Y')); \r\n" +
 						"insert into orders values(2,2,1,STR_TO_DATE('3-12-2013', '%d-%m-%Y')); \r\n" +
 						
-						"#Bookings \r\n" +
-						"#======= \r\n" +
-						"insert into bookings values(1,1,1,2,1,7,'Lior Yaffe',123456789); \r\n" +
-						"insert into bookings values(2,1,1,2,1,7,'Ploni Almoni',3493432492);";
+						"insert into bookings values(1,1,1,2,1,7,'Lior Yaffe',12345); \r\n" +
+						"insert into bookings values(2,1,1,2,1,7,'Ploni Almoni',34934);";
 		
 		Connection conn = DBConn.getConnection();
 		DBSqlScript dbs = new DBSqlScript(conn, false, true);

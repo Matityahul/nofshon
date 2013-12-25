@@ -1,0 +1,34 @@
+<!--
+<div id="searchResults">
+    <h2>Search results:
+    </h2>
+    <ul class="flights" data-bind="foreach: results()">
+        <li>
+            <div data-bind="click: flightClick">
+                <div data-bind="text: departDate() + ' - ' + airline()">
+                </div>
+                <div data-bind="text: departAirport() + ' to ' + arrivalAirport()">
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>-->
+
+
+
+<div id="searchResults">
+    <h2>Flights found:
+    </h2>
+    <ul class="flights" data-bind="foreach: results()">
+        <li>
+            <div data-bind="click: flightClick">
+                <div data-bind="text: ' Flight #' + flightId() + ' of ' + airline()">
+                </div>
+                <div data-bind="text: 'From: ' + departAirport() + ' To: ' + arrivalAirport()">
+                </div>
+                <div data-bind="text: 'On: ' + departDate()">
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
