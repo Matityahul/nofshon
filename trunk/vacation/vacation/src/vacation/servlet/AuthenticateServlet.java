@@ -1,11 +1,14 @@
 package vacation.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
 
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -50,7 +53,13 @@ public class AuthenticateServlet extends HttpServlet {
 			
 			try 
 			{
-				user = UsersHandler.GetUser(userName, password);
+				user = UsersHandler.GetUserFromReddis(userName, password);
+				
+				if (user == null)
+				{
+					user = UsersHandler.GetUser(userName, password);
+					UsersHandler.SaveUserToReddis(user);
+				}
 			} 
 			catch (Exception ex) 
 			{
@@ -91,6 +100,13 @@ public class AuthenticateServlet extends HttpServlet {
 				writer.print("{\"status\":0, \"data\":" +gson.toJson(newUser) + "}");
 			}
 			
+			try {
+				UsersHandler.SaveUserToReddis(newUser);
+			} catch (ClassNotFoundException | JSONException e) {
+				e.printStackTrace();
+				
+				writer.print("{\"status\":0, \"data\":" +gson.toJson(newUser) + "}");
+			}
 			writer.print("{\"status\":1, \"data\":" +gson.toJson(newUser) + "}");
 		}
 	}
