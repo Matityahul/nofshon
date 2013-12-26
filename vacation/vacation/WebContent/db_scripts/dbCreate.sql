@@ -102,10 +102,10 @@ CREATE TABLE IF NOT EXISTS `flights` (
   `Airline_ID` int(11) DEFAULT NULL,
   `Cost` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `FK_Flights_Airlines` (`Aireline_ID`),
+  KEY `FK_Flights_Airlines` (`Airline_ID`),
   KEY `FK_flights_airports_From` (`From_Airport`),
   KEY `FK_flights_airports_to` (`To_Airport`),
-  CONSTRAINT `FK_Flights_Airlines` FOREIGN KEY (`Aireline_ID`) REFERENCES `airlines` (`ID`),
+  CONSTRAINT `FK_Flights_Airlines` FOREIGN KEY (`Airline_ID`) REFERENCES `airlines` (`ID`),
   CONSTRAINT `FK_flights_airports_From` FOREIGN KEY (`From_Airport`) REFERENCES `airports` (`ID`),
   CONSTRAINT `FK_flights_airports_to` FOREIGN KEY (`To_Airport`) REFERENCES `airports` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
