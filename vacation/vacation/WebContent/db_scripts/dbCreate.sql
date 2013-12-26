@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `flights` (
   `Arrival_Time` datetime DEFAULT NULL,
   `From_Airport` int(11) DEFAULT NULL,
   `To_Airport` int(11) DEFAULT NULL,
-  `Aireline_ID` int(11) DEFAULT NULL,
+  `Airline_ID` int(11) DEFAULT NULL,
   `Cost` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `FK_Flights_Airlines` (`Aireline_ID`),
