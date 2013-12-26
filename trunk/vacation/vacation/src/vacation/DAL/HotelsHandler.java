@@ -49,6 +49,23 @@ public class HotelsHandler {
 		}
 		return Hotels.get(0);
 	}
+	
+	public  static List<Hotel> GetHotelsByFlightID(int FlightID)
+	{
+		List<Hotel> Hotels = new ArrayList<Hotel>();
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT h.* FROM Flights f, airports a, hotels h WHERE f.To_Airport = a.ID AND a.City_ID = h.City_ID AND f.ID = ?";
+		
+		try (PreparedStatement st = conn.prepareStatement(sql)) {
+			st.clearParameters();
+			st.setInt(1,FlightID);
+			ResultSet rs = st.executeQuery();
+			Hotels = extractHotelsFromRS(rs);
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+		return Hotels;
+	}
 
 	/**
 	 * Get filtered flights from the DB
