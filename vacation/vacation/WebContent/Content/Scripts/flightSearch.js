@@ -1,4 +1,4 @@
-define(['text!html/search.html', 'text!html/searchResults.html', 'css!styles/search.css', 'js/navigation', 'js/authentication', 'js/serverWrapper', 'knockoutjs'], function (searchTemplate, searchResultsTemplate, _style, navigation, authentication, serverWrapper, ko) {
+define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'css!styles/search.css', 'js/navigation', 'js/authentication', 'js/serverWrapper', 'knockoutjs'], function (searchTemplate, searchResultsTemplate, _style, navigation, authentication, serverWrapper, ko) {
     return new function () {
         var presenter = this;
         var allDestinations = serverWrapper.getAllDestinations();
@@ -60,6 +60,10 @@ define(['text!html/search.html', 'text!html/searchResults.html', 'css!styles/sea
 
                 this.results.push(itemModel);
             }
+            
+            self.continueToHotel = function (){
+            	$('.selectedFlight input')
+            };
         };
 
         function resultViewModel(result) {
@@ -80,7 +84,7 @@ define(['text!html/search.html', 'text!html/searchResults.html', 'css!styles/sea
         };
 
         presenter.bind = function () {
-            navigation.load('search', searchTemplate, lastSearch);
+            navigation.load('flightSearch', searchTemplate, lastSearch);
         };
     };
 });

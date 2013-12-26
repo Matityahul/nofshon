@@ -1,24 +1,5 @@
-<!--
-<div id="searchResults">
-    <h2>Search results:
-    </h2>
-    <ul class="flights" data-bind="foreach: results()">
-        <li>
-            <div data-bind="click: flightClick">
-                <div data-bind="text: departDate() + ' - ' + airline()">
-                </div>
-                <div data-bind="text: departAirport() + ' to ' + arrivalAirport()">
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>-->
-
-
-
-<div id="searchResults">
-    <h2>Flights found:
-    </h2>
+<div id="flightSearchResults" class="searchReasults">
+    <h2>Flights found:</h2>
     <ul class="flights" data-bind="foreach: results()">
         <li>
             <div data-bind="click: flightClick">
@@ -30,7 +11,9 @@
                 </div>
                 <div data-bind="text: 'Cost: ' + cost() + '$'">
                 </div>
+                <input type="hidden" data-bind="value: flightId()" />
             </div>
         </li>
     </ul>
+    <input data-bind="click: continueToHotel" style="display: none" type="button" class="actionButton" value="Continue" />
 </div>

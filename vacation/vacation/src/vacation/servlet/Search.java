@@ -42,8 +42,6 @@ public class Search extends HttpServlet {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
 		String searchType = request.getParameter("searchtype");
-		
-       //out.println("<HEAD><TITLE>Vacation servlet test</TITLE></HEAD><BODY>");
         
 		try
 		{
@@ -94,7 +92,6 @@ public class Search extends HttpServlet {
 				
 				List<Flight> flights = FlightsHandler.GetFilterdFlights(startDate, endDate, from, to, min, max);
 				
-				//out.println("<h1>Search results:</h1><br>");
 		        out.println(gson.toJson(flights));
 			}
 			else if (searchType.compareTo("hotel") == 0)
@@ -125,7 +122,6 @@ public class Search extends HttpServlet {
 				
 				List<Hotel> hotels = HotelsHandler.GetFilterdHotels(name, cityID, min, max);
 				
-				out.println("<h1>Search results:</h1><br>");
 		        out.println(gson.toJson(hotels));
 			}	        
 		}
@@ -135,7 +131,6 @@ public class Search extends HttpServlet {
 		}
 		finally
 		{
-	        //out.println("</BODY>");
 	        out.close();
 		}
 	}
