@@ -110,6 +110,19 @@ define(function () {
 
             return wrapper.get('/vacation/Search', data);
         };
+        
+        wrapper.hotelSearch = function (name, city, minCost, maxCost) {
+            var data = {
+            	searchtype: "hotel",
+                name: name == '' ? undefined : name,
+                city: city,
+                bottomcost: minCost,
+                topcost: maxCost
+            };
+
+            return wrapper.get('/vacation/Search', data);
+        };
+
 
         /*
         
