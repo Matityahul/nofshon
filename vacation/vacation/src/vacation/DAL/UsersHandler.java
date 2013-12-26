@@ -161,6 +161,126 @@ public class UsersHandler {
 		return new Order(orderID, methodID, orderTime);
 	}
 	
+	public static User GetUserFromReddis(String userName, String password) throws ReflectiveOperationException, JSONException, ParseException
+	{
+		Jedis jconn = RedisConn.getConnection();
+		
+		String reddisPassword = jconn.get("uid:"+userName+":password");
+		if (reddisPassword == null || reddisPassword.length() ==0 )
+		{
+			System.out.println("error in login params");
+			return null;
+		}
+		
+		if (!reddisPassword.equals(password))
+		{
+			System.out.println("Wrong Password Entered");
+			return null;
+		}
+		
+		String reg_date = jconn.get("uid:"+userName+":reg_date");
+		if (reg_date == null || reg_date.length() ==0 )
+		{
+			System.out.println("error in login params");
+		}
+		
+		String firstname = jconn.get("uid:"+userName+":firstname");
+		if (firstname == null || firstname.length() ==0 )
+		{
+			System.out.println("error in login params");
+		}
+		
+		String lastname = jconn.get("uid:"+userName+":lastname");
+		if (lastname == null || lastname.length() ==0 )
+		{
+			System.out.println("error in login params");
+		}
+		
+		String address = jconn.get("uid:"+userName+":address");
+		if (address == null || address.length() ==0 )
+		{
+			System.out.println("error in login params");
+		}
+		
+		String phone = jconn.get("uid:"+userName+":phone");
+		if (phone == null || phone.length() ==0 )
+		{
+			System.out.println("error in login params");
+		}
+		
+		String email = jconn.get("uid:"+userName+":email");
+		if (email == null || email.length() ==0 )
+		{
+			System.out.println("error in login params");
+		}
+		
+		String id = jconn.get("uid:"+userName+":id");
+		if (id == null || id.length() ==0 )
+		{
+			System.out.println("error in login params");
+		}
+		
+		int userIDNumber = Integer.parseInt(id);
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String orderID = jconn.lpop("uid:"+userName+":orders");
+		List<Order> orderList = new ArrayList<Order>();
+		while (orderID != null && orderID.length() > 0)
+		{
+			int orderIDNumber = Integer.parseInt(orderID);
+			String methodid = jconn.get("orderid:"+orderID+":methodid");
+			if (methodid == null || methodid.length() ==0 )
+			{
+				System.out.println("error in login params");
+			}
+			
+			String date = jconn.get("orderid:"+orderID+":date");
+			if (date == null || date.length() ==0 )
+			{
+				System.out.println("error in login params");
+			}
+			
+			Date orderDate = new java.sql.Date(df.parse(date).getTime());
+			int methodID = Integer.parseInt(methodid);
+			Order order = new Order(orderIDNumber, methodID, orderDate);
+			orderList.add(order);
+			orderID = jconn.lpop("uid:"+userName+":orders");
+		}			
+		
+		Date date = new java.sql.Date(df.parse(reg_date).getTime());
+		User foundUser = new User(userIDNumber, userName, password, address,phone,date, firstname, lastname, email, orderList);
+
+		return foundUser;
+	}
+	
+	public static void SaveUserToReddis(User user) throws ClassNotFoundException, JSONException
+	{
+		Jedis jconn = RedisConn.getConnection();
+		
+		String username = user.get_userName();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");		
+		
+		jconn.set("uid:" + username + ":id",Integer.toString(user.get_id()));
+		jconn.set("uid:" + username + ":password",user.get_password());
+		jconn.set("uid:" + username + ":reg_date", df.format(user.get_reg_date()));
+		jconn.set("uid:" + username + ":firstname",user.get_firstName());
+		jconn.set("uid:" + username + ":lastname",user.get_lastName());
+		jconn.set("uid:" + username + ":address",user.get_address());
+		jconn.set("uid:" + username + ":phone",user.get_phone());
+		jconn.set("uid:" + username + ":email",user.get_email());
+		
+		List<Order> orders =  user.get_orders();
+		
+		for (Order order : orders)
+		{
+			String orderID = Integer.toString(order.get_id());
+			jconn.lpush("uid:" + username + ":orders",orderID);
+			jconn.set("orderid:" + orderID +":methodid",Integer.toString(order.get_method_id()));
+			jconn.set("orderid:" + orderID +":date",df.format(order.get_order_time()));
+		}
+	}
+	
+	
 	public static List<User> GetOnlineUsers() throws ParseException
 	{
 		List<User> returnList = new ArrayList<User>();

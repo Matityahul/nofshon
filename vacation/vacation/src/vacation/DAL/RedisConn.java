@@ -1,8 +1,10 @@
 package vacation.DAL;
 
+import java.sql.Connection;
 import java.util.Calendar;
 
 import org.json.JSONException;
+
 
 
 
@@ -23,7 +25,8 @@ public class RedisConn
 		
         System.out.println((new StringBuilder("conn successed. conn=")).append(conn).toString());
     }
-    
+	
+	
     private static void AddDummyData(Jedis jconn) {
 		// TODO Auto-generated method stub	
 		Calendar now = Calendar.getInstance();
