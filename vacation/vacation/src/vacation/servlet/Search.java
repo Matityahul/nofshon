@@ -123,7 +123,22 @@ public class Search extends HttpServlet {
 				List<Hotel> hotels = HotelsHandler.GetFilterdHotels(name, cityID, min, max);
 				
 		        out.println(gson.toJson(hotels));
-			}	        
+			}
+			else if (searchType.compareTo("HotelsByFlight") == 0)
+			{
+				String flight = request.getParameter("flightID");
+				
+				Integer flightID = null;;
+				
+				if (flight != null && flight != "")
+				{
+					flightID = Integer.parseInt(flight);
+				}
+							
+				List<Hotel> hotels = HotelsHandler.GetHotelsByFlightID(flightID);
+				
+		        out.println(gson.toJson(hotels));
+			}
 		}
 		catch (Exception ex)
 		{

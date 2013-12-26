@@ -111,6 +111,14 @@ define(function () {
             return wrapper.get('/vacation/Search', data);
         };
         
+        wrapper.HotelsByFlight = function (flightID) {
+            var data = {
+            	flightID : flightID
+            };
+
+            return wrapper.get('/vacation/Search', data);
+        };
+        
         wrapper.hotelSearch = function (name, city, minCost, maxCost) {
             var data = {
             	searchtype: "hotel",
@@ -122,19 +130,6 @@ define(function () {
 
             return wrapper.get('/vacation/Search', data);
         };
-
-
-        /*
-        
-        wrapper.getSeatsForFlight = function (flightId) {
-            var data = {
-                fid: flightId
-            };
-
-            return wrapper.get('/vacation/FlightSeatServlet/get', data);
-        };
-
-		*/
         
         wrapper.getAllDestinations = function () {
             var data = {
