@@ -139,6 +139,29 @@ public class Search extends HttpServlet {
 				
 		        out.println(gson.toJson(hotels));
 			}
+			else if (searchType.compareTo("ReturnFlights") == 0)
+			{
+				String flight = request.getParameter("flightID");
+				String nights = request.getParameter("nightsNumber");
+				
+				Integer flightID = null;;
+				Integer nightsNumber = null;;
+				
+				if (flight != null && flight != "")
+				{
+					flightID = Integer.parseInt(flight);
+				}
+				
+				if (nights != null && nights != "")
+				{
+					nightsNumber = Integer.parseInt(nights);
+				}
+							
+				List<Flight> flights = FlightsHandler.GetReturnFlights(flightID, nightsNumber);
+				
+		        out.println(gson.toJson(flights));
+
+			}
 		}
 		catch (Exception ex)
 		{

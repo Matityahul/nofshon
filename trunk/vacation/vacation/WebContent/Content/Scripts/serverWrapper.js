@@ -120,6 +120,16 @@ define(function () {
             return wrapper.get('/vacation/Search', data);
         };
         
+        wrapper.returnFlights = function (flightID, numberOfNights) {
+            var data = {
+            	searchtype:"ReturnFlights",
+            	flightID : flightID,
+            	nightsNumber:numberOfNights
+            };
+
+            return wrapper.get('/vacation/Search', data);
+        };
+        
         wrapper.hotelSearch = function (name, city, minCost, maxCost) {
             var data = {
             	searchtype: "hotel",
