@@ -1,5 +1,7 @@
 package vacation.model;
 
+import vacation.DAL.HotelsHandler;
+
 public class Hotel {
         int _id;
         int _city_id;
@@ -7,7 +9,7 @@ public class Hotel {
         String _address;
         String _phone;
         int _cost;
-        
+        String _city_name;
         
 
         public Hotel(int id, int city_id, String name, String address, String phone, int cost)
@@ -19,6 +21,7 @@ public class Hotel {
                 _address = address;
                 _phone = phone;
                 _cost = cost;
+                _city_name = HotelsHandler.GetCityNameByID(city_id);
         }
         
         public int get_id() {
