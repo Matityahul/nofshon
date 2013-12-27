@@ -113,6 +113,7 @@ define(function () {
         
         wrapper.HotelsByFlight = function (flightID) {
             var data = {
+            	searchtype:"HotelsByFlight",
             	flightID : flightID
             };
 
