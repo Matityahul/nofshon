@@ -203,4 +203,26 @@ public class FlightsHandler {
 		
 		return flights;
 	}
+	
+	public static List<Flight> GetReturnFlights(int flightID, int nightsNumber) {
+		List<Flight> flights = new ArrayList<Flight>();
+		Connection conn = DBConn.getConnection();
+		String sql = "select f1.* from flights f1, flights f2 " +
+					 "where f2.ID = ? AND f2.To_Airport = f1.From_Airport AND " +
+					 "DATEDIFF(f1.Departure_Time,f2.Arrival_Time) = ?";
+		
+		try (java.sql.PreparedStatement st = conn.prepareStatement(sql)) 
+		{
+			st.clearParameters();
+			st.setInt(1,flightID);
+			st.setInt(2,nightsNumber);
+			ResultSet rs = st.executeQuery();
+			flights = extractFlightsFromRS(rs);
+		} 
+		catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+		
+		return flights;
+	}
 }
