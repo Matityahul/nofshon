@@ -32,6 +32,25 @@ public class HotelsHandler {
 		return Hotels;
 	}
 	
+	public static String GetCityNameByID(int id)
+	{
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT Name FROM cities where id = ?";
+		String name = "";
+		
+		try (PreparedStatement st = conn.prepareStatement(sql)) {
+			st.clearParameters();
+			st.setInt(1,id);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			name = rs.getString("Name");
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+		
+		return name;
+	}
+	
 	
 	public Hotel GetHotelByID(int id)
 	{
