@@ -1,5 +1,8 @@
 package vacation.model;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import vacation.DAL.FlightsHandler;
@@ -15,7 +18,7 @@ public class Flight {
         String _name;
         String _depart_name;
         String _arrival_name;
-        
+        String _long_format_time;
         
         
 
@@ -33,6 +36,9 @@ public class Flight {
                 _name = FlightsHandler.GetAirlineNameByID(airline_id);
                 _depart_name = FlightsHandler.GetAirportNameByID(from_airport);
                 _arrival_name = FlightsHandler.GetAirportNameByID(to_airport);
+                
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                _long_format_time = df.format(departure_time2);
         }
         
         public int get_id() {
