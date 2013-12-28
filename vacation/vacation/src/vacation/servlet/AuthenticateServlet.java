@@ -47,7 +47,7 @@ public class AuthenticateServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		
-		if (requestType.compareTo("login") == 0)
+		if (requestType != null && requestType.compareTo("login") == 0)
 		{
 			User user = null;
 			
@@ -75,7 +75,7 @@ public class AuthenticateServlet extends HttpServlet {
 				writer.print("{\"status\":0, \"data\":" +gson.toJson(user) + "}");
 			}
 		}
-		else if (requestType.compareTo("register") == 0)
+		else if (requestType != null && requestType.compareTo("register") == 0)
 		{
 			String firstName = request.getParameter("firstName");
 			String lastName = request.getParameter("lastName");
