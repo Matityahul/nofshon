@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -172,7 +173,7 @@ public class FlightsHandler {
 			int cost = resultSet.getInt("Cost");
 			int from_airport = resultSet.getInt("From_Airport");
 			int to_airport = resultSet.getInt("To_Airport");
-			Date departure_time=resultSet.getDate("Departure_Time");
+			java.util.Date departure_time=resultSet.getTimestamp("Departure_Time");
 			Date arrival_time=resultSet.getDate("Arrival_Time");
 			
 			Flight flight = new Flight(flight_id, airline_id, cost, from_airport, to_airport, departure_time, arrival_time);

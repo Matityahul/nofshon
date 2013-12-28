@@ -105,6 +105,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
             self.departAirport = ko.observable(result._depart_name);
             self.arrivalAirport = ko.observable(result._arrival_name);
             self.departDate = ko.observable(result._departure_time);
+            self.departString = ko.observable(result._long_format_time);
             self.cost = ko.observable(result._cost);
             self.isExpanded = ko.observable(false);
         };
