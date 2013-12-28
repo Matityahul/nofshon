@@ -114,6 +114,21 @@ public class OrderServlet extends HttpServlet {
 			
 			writer.print(gson.toJson(hotels));
 		}
+		else if (requestType.compareTo("getPaymentMethods") == 0)
+		{			
+			List<PaymentMethod> methods = null;
+			
+			try 
+			{
+				methods = OrdersHandler.GetPaymentMethods();
+			} 
+			catch (Exception ex) 
+			{
+				ex.printStackTrace();
+			}
+			
+			writer.print(gson.toJson(methods));
+		}
 	}
 
 	/**
