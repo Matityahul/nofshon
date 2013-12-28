@@ -47,7 +47,7 @@ public class OrderServlet extends HttpServlet {
 		
 		String requestType = request.getParameter("requestType");
 		
-		if (requestType.compareTo("getOrders") == 0)
+		if (requestType != null && requestType.compareTo("getOrders") == 0)
 		{
 			String userId = request.getParameter("userId");
 			List<Order> orders = null;
@@ -63,7 +63,7 @@ public class OrderServlet extends HttpServlet {
 			
 			writer.print(gson.toJson(orders));
 		}
-		else if (requestType.compareTo("getBookings") == 0)
+		else if (requestType != null && requestType.compareTo("getBookings") == 0)
 		{
 			String orderId = request.getParameter("orderId");
 			
@@ -80,7 +80,7 @@ public class OrderServlet extends HttpServlet {
 			
 			writer.print(gson.toJson(bookings));
 		}
-		else if (requestType.compareTo("getFlights") == 0)
+		else if (requestType != null && requestType.compareTo("getFlights") == 0)
 		{
 			String orderId = request.getParameter("orderId");
 			
@@ -97,7 +97,7 @@ public class OrderServlet extends HttpServlet {
 			
 			writer.print(gson.toJson(flights));
 		}
-		else if (requestType.compareTo("getHotels") == 0)
+		else if (requestType != null && requestType.compareTo("getHotels") == 0)
 		{
 			String orderId = request.getParameter("orderId");
 			
@@ -114,7 +114,7 @@ public class OrderServlet extends HttpServlet {
 			
 			writer.print(gson.toJson(hotels));
 		}
-		else if (requestType.compareTo("getPaymentMethods") == 0)
+		else if (requestType != null && requestType.compareTo("getPaymentMethods") == 0)
 		{			
 			List<PaymentMethod> methods = null;
 			

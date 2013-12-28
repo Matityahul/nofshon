@@ -45,7 +45,7 @@ public class Search extends HttpServlet {
         
 		try
 		{
-			if (searchType.compareTo("flight") == 0)
+			if (searchType != null && searchType.compareTo("flight") == 0)
 			{
 				String start = request.getParameter("start");
 				String end = request.getParameter("end");
@@ -94,7 +94,7 @@ public class Search extends HttpServlet {
 				
 		        out.println(gson.toJson(flights));
 			}
-			else if (searchType.compareTo("hotel") == 0)
+			else if (searchType != null && searchType.compareTo("hotel") == 0)
 			{
 				String name = request.getParameter("name");
 				String city = request.getParameter("city");
@@ -124,7 +124,7 @@ public class Search extends HttpServlet {
 				
 		        out.println(gson.toJson(hotels));
 			}
-			else if (searchType.compareTo("HotelsByFlight") == 0)
+			else if (searchType != null && searchType.compareTo("HotelsByFlight") == 0)
 			{
 				String flight = request.getParameter("flightID");
 				
@@ -139,7 +139,7 @@ public class Search extends HttpServlet {
 				
 		        out.println(gson.toJson(hotels));
 			}
-			else if (searchType.compareTo("ReturnFlights") == 0)
+			else if (searchType != null && searchType.compareTo("ReturnFlights") == 0)
 			{
 				String flight = request.getParameter("flightID");
 				String nights = request.getParameter("nightsNumber");

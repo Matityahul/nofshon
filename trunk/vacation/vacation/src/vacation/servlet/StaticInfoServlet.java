@@ -53,7 +53,7 @@ public class StaticInfoServlet extends HttpServlet {
 		
 		String requestType = request.getParameter("info");
 		
-		if (requestType.compareTo("AllDestinations") == 0)
+		if (requestType != null && requestType.compareTo("AllDestinations") == 0)
 		{
 			ArrayList<String> src = new ArrayList<String>();
 			ArrayList<Airport> src2 = new ArrayList<Airport>();
