@@ -162,16 +162,31 @@ public class OrderServlet extends HttpServlet {
 			    List<Booking> lstBookings = new ArrayList<Booking>();
 			    
 			    int orderID = StaticDataHandler.GetNextID("orders");
-			    int user_id = jObj.getInt("user_id");
-			    int method_id = jObj.getInt("method_id");
+			    int user_id = jObj.getInt("userID");
+			    int method_id = jObj.getInt("paymentMethodId");
+			    int departFlightId = jObj.getInt("departFlightId");
+			    int returnFlightId = jObj.getInt("returnFlightId");
+			    int nights = jObj.getInt("nights");
+			    int hotelID = jObj.getInt("hotelId");
 			    
-			    JSONArray bookingsArray = jObj.getJSONArray("bookings");
+			    JSONArray passengers = jObj.getJSONArray("passengers");
 			    
-			    // Go over the array
-			    int bookingID = StaticDataHandler.GetNextID("bookings");
-			    Booking newBooking = new Booking(bookingID, orderID, , , , , , , , );
-			    lstBookings.add(newBooking);
-			    
+			    // Go over each passenger
+			    for (int i = 0; i < passengers.length(); i++)
+			    {
+			    	// Get the current passenger
+			    	JSONObject currPassenger = passengers.getJSONObject(i);
+			    	
+			    	// Get the next booking id
+				    int bookingID = StaticDataHandler.GetNextID("bookings");
+				    
+				    // Create the new booking
+				    Booking newBooking = new Booking(bookingID, orderID, departFlightId, returnFlightId, hotelID, nights, currPassenger.getString("name"), currPassenger.getInt("passport"));
+				    
+				    // Add it to the list
+				    lstBookings.add(newBooking);
+			    }
+			   			    
 			    // Add the order and the bookings
 			    OrdersHandler.AddOrder(orderID, user_id, lstBookings, method_id);
 				}
