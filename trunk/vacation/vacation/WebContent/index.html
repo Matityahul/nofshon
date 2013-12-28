@@ -25,11 +25,6 @@
             menuPresenterPromise.then(function (menuPresenter) {
                 menuPresenter.bind();
             });
-            
-            $('#menu li').click(function() {
-            	$("#menu li").removeClass('selected');
-            	$(this).addClass('selected');
-            });
         })
     </script>
 </head>
@@ -38,17 +33,17 @@
     	<div id="menu">
             <ul>
                 <li>
-                    <div class="search" data-bind="click: search">
+                    <div data-bind="click: search">
                     	<img src="/vacation/Content/Images/searchIcon.png" />
                     </div>
                 </li>
                 <li>
-                    <div class="personalData" data-bind="click: personalData">
+                    <div data-bind="click: personalData">
                     	<img src="/vacation/Content/Images/personIcon.png" />
                     </div>
                 </li>
                 <li>
-                    <div class="about" data-bind="click: about">
+                    <div data-bind="click: about">
                     	<img src="/vacation/Content/Images/aboutIcon.png" />
                     </div>
                 </li>

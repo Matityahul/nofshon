@@ -88,7 +88,6 @@ public class DBConn
 	
     public static Connection getConnection()
     {
-    	conn = null;
     	if (conn == null)
     	{
     		initConn();

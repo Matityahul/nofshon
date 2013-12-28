@@ -86,7 +86,8 @@ define(['text!html/orders.html', 'css!styles/orders.css', 'js/authentication', '
                                 }
                             }
                             
-                            var totalCost =  booking.departFlight().flightCost() + booking.returnFlight().flightCost() + booking.hotel().hotelCost();
+                            var totalCost =  booking.departFlight().flightCost() + booking.returnFlight().flightCost() + 
+                            				booking.hotel().hotelCost() * booking.nights();
                             
                             booking.totalCost(totalCost);
                             
