@@ -31,6 +31,22 @@ public class OrdersHandler {
 			
 			return Orders;
 		}
+		
+		public static List<PaymentMethod> GetPaymentMethods()
+		{
+			List<PaymentMethod> Methods = new ArrayList<PaymentMethod>();
+			Connection conn = DBConn.getConnection();
+			String sql = "SELECT * FROM payment_methods";
+			
+			try (java.sql.Statement st = conn.createStatement()) {
+				ResultSet rs = st.executeQuery(sql);
+				Methods = extractMethodsFromRS(rs);
+			} catch (SQLException ex) {
+				System.err.println(ex.getMessage());
+			}
+			
+			return Methods;
+		}
 	
 	public static Order GetOrderByID(int id)
 	{
@@ -140,6 +156,21 @@ public class OrdersHandler {
 		}
 		
 		return orders;
+	}
+	
+	private static List<PaymentMethod> extractMethodsFromRS(ResultSet resultSet) throws SQLException {
+		List<PaymentMethod> methods = new ArrayList<PaymentMethod>();
+		
+		while (resultSet.next()) {
+			int method_id = resultSet.getInt("ID");
+			String method_name = resultSet.getString("NAME");
+			
+			PaymentMethod method = new PaymentMethod(method_id, method_name);
+			
+			methods.add(method);
+		}
+		
+		return methods;
 	}
 	
 }
