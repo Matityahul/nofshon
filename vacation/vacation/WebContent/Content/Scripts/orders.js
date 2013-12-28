@@ -40,6 +40,7 @@ define(['text!html/orders.html', 'css!styles/orders.css', 'js/authentication', '
 	                    var flight = {
 	                        id: ko.observable(result[i]._id),
 	                        flightTime: ko.observable(result[i]._departure_time),
+	                        flightTimeString: ko.observable(result[i]._long_format_time),
 	                        flightCost: ko.observable(result[i]._cost)
 	                    };
 	
@@ -61,6 +62,7 @@ define(['text!html/orders.html', 'css!styles/orders.css', 'js/authentication', '
                                 name: ko.observable(result[i]._name),
                                 nights: ko.observable(result[i]._number_of_nights),
                                 departFlight: ko.observable(),
+                                departString: ko.observable(),
                                 returnFlight: ko.observable(),
                                 hotel: ko.observable(),
                                 totalCost: ko.observable()
@@ -71,6 +73,7 @@ define(['text!html/orders.html', 'css!styles/orders.css', 'js/authentication', '
                                 if (self.flights()[j].id() == result[i]._depart_flight_id) 
                                 {
                                     booking.departFlight(self.flights()[j]);
+                                    booking.departString(self.flights()[j]._long_format_time);
                                 }
                                 else if (self.flights()[j].id() == result[i]._return_flight_id)
                                 {
