@@ -1,5 +1,6 @@
 package vacation.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -9,11 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -135,7 +140,45 @@ public class OrderServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String url = request.getPathInfo();
+
+		response.setContentType( "text/html" );
+
+		if (url != null && url.indexOf("MakeOrder") != -1)
+		{
+			try {
+				StringBuilder sb = new StringBuilder();
+			    BufferedReader br = request.getReader();
+			    String str;
+			    
+			    while( (str = br.readLine()) != null ){
+			        sb.append(str);
+			    }    
+			    
+			    // Get the JSON from the string we got from the wrapper
+			    JSONObject jObj = new JSONObject(sb.toString());
+			    
+			    // Build the order itself
+			    List<Booking> lstBookings = new ArrayList<Booking>();
+			    
+			    int orderID = StaticDataHandler.GetNextID("orders");
+			    int user_id = jObj.getInt("user_id");
+			    int method_id = jObj.getInt("method_id");
+			    
+			    JSONArray bookingsArray = jObj.getJSONArray("bookings");
+			    
+			    // Go over the array
+			    int bookingID = StaticDataHandler.GetNextID("bookings");
+			    Booking newBooking = new Booking(bookingID, orderID, , , , , , , , );
+			    lstBookings.add(newBooking);
+			    
+			    // Add the order and the bookings
+			    OrdersHandler.AddOrder(orderID, user_id, lstBookings, method_id);
+				}
+			 catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
