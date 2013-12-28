@@ -163,7 +163,16 @@ public class UsersHandler {
 	
 	public static User GetUserFromReddis(String userName, String password) throws ReflectiveOperationException, JSONException, ParseException
 	{
-		Jedis jconn = RedisConn.getConnection();
+		Jedis jconn; 
+		
+		try
+		{
+			jconn = RedisConn.getConnection();
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
 		
 		String reddisPassword = jconn.get("uid:"+userName+":password");
 		if (reddisPassword == null || reddisPassword.length() ==0 )
@@ -255,7 +264,16 @@ public class UsersHandler {
 	
 	public static void SaveUserToReddis(User user) throws ClassNotFoundException, JSONException
 	{
-		Jedis jconn = RedisConn.getConnection();
+		Jedis jconn; 
+		
+		try
+		{
+			jconn = RedisConn.getConnection();
+		}
+		catch (Exception ex)
+		{
+			return;
+		}
 		
 		String username = user.get_userName();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");		
