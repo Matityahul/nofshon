@@ -34,12 +34,21 @@ define(function () {
             };
 
             return wrapper.get('/vacation/BookingServlet/getcost', data);
-        };
+        };*/
+        
+        wrapper.getAllPaymentMethods = function() {
+        	var data = {
+                	requestType: "getPaymentMethods",
+                };
 
-        wrapper.bookFlight = function (booking) {
+                return wrapper.get('/vacation/OrderServlet', data);
+        };
+        
+        wrapper.order = function (order) {
             var data = {
-                flight_id: booking.flightId(),
-                user_id: booking.userId(),
+            	requestType: "newOrder",
+            	userID: order.userID(),
+                departFlightID: booking.departFlightID(),
                 seats_class: booking.seatClass(),
                 totalCost: booking.totalPrice(),
                 seats_count: booking.desiredSeatsCount(),
@@ -56,10 +65,8 @@ define(function () {
                 });
             }
 
-            return wrapper.post('/vacation/BookingServlet/makebooking', JSON.stringify(data));
+            return wrapper.post('/vacation/OrderServlet', JSON.stringify(data));
         };
-        
-        */
 
         wrapper.userOrders = function (userID) {
             var data = {
