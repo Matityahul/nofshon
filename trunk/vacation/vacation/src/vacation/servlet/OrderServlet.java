@@ -144,7 +144,7 @@ public class OrderServlet extends HttpServlet {
 
 		response.setContentType( "text/html" );
 
-		if (url != null && url.indexOf("MakeOrder") != -1)
+		if (url != null && url.indexOf("newOrder") != -1)
 		{
 			try {
 				StringBuilder sb = new StringBuilder();
