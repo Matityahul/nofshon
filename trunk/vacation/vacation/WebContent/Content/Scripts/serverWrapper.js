@@ -1,4 +1,3 @@
-//TODO : Change the functions for our needs!!
 define(function () {
     return new function () {
         var wrapper = this;
@@ -28,14 +27,6 @@ define(function () {
             return wrapper.post('/vacation/AuthenticateServlet', data);
         };
         
-       /* wrapper.userTotalCost = function (userID) {
-            var data = {
-                uid: userID
-            };
-
-            return wrapper.get('/vacation/BookingServlet/getcost', data);
-        };*/
-        
         wrapper.getAllPaymentMethods = function() {
         	var data = {
                 	requestType: "getPaymentMethods",
@@ -47,21 +38,19 @@ define(function () {
         wrapper.order = function (order) {
             var data = {
             	requestType: "newOrder",
-            	userID: order.userID(),
-                departFlightID: booking.departFlightID(),
-                seats_class: booking.seatClass(),
-                totalCost: booking.totalPrice(),
-                seats_count: booking.desiredSeatsCount(),
-                users: []
+            	userID: order.userId(),
+                departFlightId: order.departFlightId(),
+                returnFlightId: order.returnFlightId(),
+                nights: order.nights(),
+                paymentMethodId: order.selectedMethod(),
+                hotelId: order.hotelId(),
+                passengers: []
             };
 
-            for (var i = 0; i < booking.users().length; ++i) {
-                data.users.push({
-                    first_name: booking.users()[i].firstName(),
-                    last_name: booking.users()[i].lastName(),
-                    passport_number: booking.users()[i].passport(),
-                    credit_card: booking.users()[i].creditCard(),
-                    credit_expt: booking.users()[i].creditExpiration()
+            for (var i = 0; i < order.passengers().length; i++) {
+                data.passengers.push({
+                    name: order.passengers()[i].name(),
+                    passport: order.passengers()[i].passport()
                 });
             }
 

@@ -43,6 +43,7 @@ define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/na
                 if (result && result.status == 1) {
                 	container.isLoggedIn = true;
                 	container.user = result.data;
+                	$('#connectedUser span').text('Hello ' + container.user._userName);
                     callback();
                 }
                 else {
@@ -58,6 +59,7 @@ define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/na
                 if (result && result.status == 1) {
                 	container.isLoggedIn = true;
                 	container.user = result.data;
+                	$('#connectedUser span').text('Hello ' + container.user._userName);
                     callback();
                 }
                 else {

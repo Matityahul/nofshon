@@ -1,12 +1,12 @@
-define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'text!html/hotelSearchResults.html', 'css!styles/search.css', 'js/navigation', 'js/authentication', 'js/serverWrapper', 'knockoutjs'], function (searchTemplate, searchResultsTemplate, hotelResultsTemplate, _style, navigation, authentication, serverWrapper, ko) {
+define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'text!html/hotelSearchResults.html', 'css!styles/search.css', 'js/navigation', 'js/authentication', 'js/serverWrapper', 'js/newOrder', 'knockoutjs'], function (searchTemplate, searchResultsTemplate, hotelResultsTemplate, _style, navigation, authentication, serverWrapper, newOrder, ko) {
     return new function () {
         var container = this;
         var allDestinations = serverWrapper.getAllDestinations();
         var lastSearch = new searchViewModel();
-        var _departFlightID = '';
-        var _returnFlightID = '';
-        var _hotelID = '';
-        var _nightsCount = '';
+        var _departFlight;
+        var _returnFlight;
+        var _hotel;
+        var _nightsCount;
         
 
         function searchViewModel() {
@@ -57,7 +57,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
         	
         	this.results = ko.observableArray();
             for (var i = 0; i < results.length; ++i) {
-                var itemModel = new flightResultViewModel(results[i]);
+                var itemModel = new flightResultViewModel(results[i], isReturnFlight);
                 itemModel.emptyFlight.add(function (model) {
                     var index = this.results().indexOf(model);
                     this.results.splice(index, 1);
@@ -72,7 +72,18 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
         		
 				self.nextStep = function (){
 				                	
-	            	//TODO: pass to bookings 
+					if (!authentication.isLoggedIn) 
+					{
+						authentication.authenticate(self.nextStep);
+	                } 
+					else 
+	                {
+						self.departFlight = ko.observable(_departFlight);
+						self.returnFlight = ko.observable(_returnFlight);
+						self.hotel = ko.observable(_hotel);
+						self.nightsCount = ko.observable(_nightsCount);
+	                    newOrder.Order(self);
+	                }
 	            };
         	}
         	else
@@ -86,7 +97,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                     };
                 	
                 	serverWrapper
-                		.hotelsByFlight(_departFlightID)
+                		.hotelsByFlight(_departFlight.flightId())
 	                    .success(function (result) {
 	                        if (!result || result.length == 0) return onHotelsFailure();
 	                        navigation.load('hotelSearchResults', hotelResultsTemplate, new hotelResultsViewModel(result));
@@ -96,7 +107,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
         	}
         };
         
-        function flightResultViewModel(result) {
+        function flightResultViewModel(result, isReturnFlight) {
             var self = this;
 
             self.emptyFlight = $.Callbacks();
@@ -107,11 +118,21 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
             self.departDate = ko.observable(result._departure_time);
             self.departString = ko.observable(result._long_format_time);
             self.cost = ko.observable(result._cost);
-            self.isExpanded = ko.observable(false);
+            
+            if (isReturnFlight)
+            {
+            	self.isReturnFlight = ko.observable(isReturnFlight);
+            }
         };
         
         self.flightClick = function (data, event) {
-        	_departFlightID = data.flightId();
+        	if (data.isReturnFlight){
+        		_returnFlight = data;
+        	}
+        	else{
+        		_departFlight = data;
+        	}
+        	
             $('.searchOption').removeClass('selectedSearchItem');
         	$(event.currentTarget).addClass('selectedSearchItem');
         	$('#nextStep:hidden').fadeIn();
@@ -137,7 +158,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                 };
             	
             	serverWrapper
-	                .returnFlights(_departFlightID, _nightsCount)
+	                .returnFlights(_departFlight.flightId(), _nightsCount)
 	                .success(function (result) {
 	                    if (!result || result.length == 0) return onFlightsFailure();
 	                    navigation.load('flightSearchResults', searchResultsTemplate, new flightResultsViewModel(result, true));
@@ -168,7 +189,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
         self.hotelClick = function (data, event) {
         	var currentSelect = $(event.currentTarget).find('select');
         	_nightsCount = currentSelect.val();
-        	_hotelID = data.hotelId();
+        	_hotel = data;
         	
             $('.searchOption').removeClass('selectedSearchItem');
         	$(event.currentTarget).addClass('selectedSearchItem');

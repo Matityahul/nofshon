@@ -13,3 +13,11 @@
         list-style-type: none;
     }
 
+#newOrder div {
+	padding: 2px;
+}
+
+#newOrder #totalPrice {
+	font-weight: bold;
+}
+
