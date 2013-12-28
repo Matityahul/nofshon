@@ -21,19 +21,37 @@
     padding-top: 20px;
 }
 
-    .searchResults .flights {
+    .searchResults > ul {
         list-style-type: none;
     }
 
-        .searchResults .flights > li {
-            margin: 5px 0;
+        .searchResults > ul li {
+            padding: 5px;
             border-top: 1px solid white;
         }
+        
+        .searchResults > ul li div{
+            cursor: pointer;
+        }
 
-            .searchResults .flights > li:last-child {
+            .searchResults > ul li:last-child {
                 border-bottom: 1px solid white;
             }
 
     .searchResults .seats .actionButton {
         margin-top: 3px;
     }
+    
+ .selectedSearchItem
+ {
+ 	background-color: rgba(250,250,250,0.5);
+ }
+
+ .continue
+ {
+ 	position: fixed;
+ 	bottom: 60px;
+ 	height: 30px;
+	width: 110px;
+ 	z-index: 9;
+ }

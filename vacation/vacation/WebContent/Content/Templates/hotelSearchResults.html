@@ -1,37 +1,24 @@
-<!--
-<div id="searchResults">
-    <h2>Search results:
-    </h2>
-    <ul class="flights" data-bind="foreach: results()">
+<div id="hotelSearchResults" class="searchResults">
+    <h2>Choose hotel:</h2>
+    <ul class="hotels" data-bind="foreach: results()">
         <li>
-            <div data-bind="click: flightClick">
-                <div data-bind="text: departDate() + ' - ' + airline()">
+            <div class="searchOption" data-bind="click: hotelClick" >
+                <div data-bind="text: 'Hotel Name: ' + name()" >
                 </div>
-                <div data-bind="text: departAirport() + ' to ' + arrivalAirport()">
+                <div data-bind="text: 'City: ' + cityName()">
                 </div>
-            </div>
-        </li>
-    </ul>
-</div>-->
-
-
-
-<div id="hotelSearchResults">
-    <h2>Flights found:
-    </h2>
-    <ul class="flights" data-bind="foreach: results()">
-        <li>
-            <div data-bind="click: flightClick">
-                <div data-bind="text: ' Flight #' + flightId() + ' of ' + airline()">
+                <div data-bind="text: 'Address: ' + address()">
                 </div>
-                <div data-bind="text: 'From: ' + departAirport() + ' To: ' + arrivalAirport()">
-                </div>
-                <div data-bind="text: 'On: ' + departDate()">
-                </div>
-                <div data-bind="text: 'Cost: ' + cost() + '$'">
+                <div data-bind="text: 'Cost Per Night: ' + cost() + '$'">
                 </div>
                 <div>
+                	<span># Nights: </span>
+	                <select data-bind="options: nightsValues()" class="nightsNum" disabled>
+	                	<option data-bind="text: $data, attr: { value: $data }"></option>
+	            	</select>
+            	</div>
             </div>
         </li>
     </ul>
+    <input id="continueToFlight" data-bind="click: continueToFlight" style="display: none" type="button" class="actionButton continue" value="Continue" />
 </div>

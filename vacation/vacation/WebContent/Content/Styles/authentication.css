@@ -14,6 +14,10 @@
     	margin-top: 10px;
     	margin-left: 5px;
     }
+    
+    #authentication input:not(#address){
+    	max-width: 33%;
+    }
 
     #authentication .actionButton {
         margin-top: 20px;
@@ -21,11 +25,13 @@
 
 #address
 {
-	width: 340px;
+	max-width:75%;
+	width: 324px;
 }
 
 .authenticationSection
 {
+	max-width: 80%;
 	width: 450px;
 	margin: 50px auto;
 	padding: 25px;

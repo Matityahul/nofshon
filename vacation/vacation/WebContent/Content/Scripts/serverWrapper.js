@@ -111,7 +111,7 @@ define(function () {
             return wrapper.get('/vacation/Search', data);
         };
         
-        wrapper.HotelsByFlight = function (flightID) {
+        wrapper.hotelsByFlight = function (flightID) {
             var data = {
             	searchtype:"HotelsByFlight",
             	flightID : flightID
@@ -120,10 +120,10 @@ define(function () {
             return wrapper.get('/vacation/Search', data);
         };
         
-        wrapper.returnFlights = function (flightID, numberOfNights) {
+        wrapper.returnFlights = function (departFlightID, numberOfNights) {
             var data = {
             	searchtype:"ReturnFlights",
-            	flightID : flightID,
+            	flightID : departFlightID,
             	nightsNumber:numberOfNights
             };
 

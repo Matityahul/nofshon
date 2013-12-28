@@ -78,7 +78,6 @@ public class StaticInfoServlet extends HttpServlet {
 				}
 			}
 			writer.print(gson.toJson(src2));
-			//writer.print(gson.toJson(src));
 		}
     }
 
