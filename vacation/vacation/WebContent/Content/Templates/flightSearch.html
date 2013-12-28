@@ -2,11 +2,11 @@
     <h2>Search for flight</h2>
     <div>
         <div>
-            <select data-bind="options: destinations(), optionsText: '_name', value: source, optionsCaption: 'Depart from...'">
+            <select data-bind="options: destinations(), optionsText: '_name', optionsValue: '_id', value: source, optionsCaption: 'Depart from...'">
                 <option data-bind="text: $data, attr: { value: $data }"></option>
             </select>
             <span>To</span>
-            <select data-bind="options: destinations(), optionsText: '_name', value: destination, optionsCaption: 'Arrive to...'">
+            <select data-bind="options: destinations(), optionsText: '_name', optionsValue: '_id', value: destination, optionsCaption: 'Arrive to...'">
                 <option data-bind="text: $data, attr: { value: $data }"></option>
             </select>
         </div>

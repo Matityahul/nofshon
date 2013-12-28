@@ -30,6 +30,14 @@ body {
 	cursor: pointer;
 }
 
+#connectedUser
+{
+	position: fixed;
+	left: 30px;
+	top: 20px;
+	font-weight: bold;
+}
+
 #content {
     padding-bottom: 50px;
     position: relative;

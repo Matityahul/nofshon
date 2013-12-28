@@ -1,0 +1,48 @@
+<script type="text/javascript">
+// Submit through jquery because we want the the automatic html5 validation
+// and after this send the data to the server by ajax
+$("#orderForm").submit(function() {
+	$("#hiddenOrdering").click();
+	return false;
+});
+</script>
+
+<div id="newOrder">
+    <h2>New Order</h2>
+    <h3>You are about to order a vacation:</h3>
+    <div data-bind="text: 'Departure with airline ' + departAirline() + ' from ' + firstDepartAirport()  + ' to ' + firstArrivalAirport() + ' at ' + departDate()"></div>
+    <div data-bind="text: 'Staying in the hotel ' + hotelName() + ' for ' + nights() + ' nights'"></div>
+    <div data-bind="text: 'Return with airline ' + returnAirline() + ' from ' + secondDepartAirport() + ' to ' + secondArrivalAirport() + ' at ' + returnDate()"></div>
+    <div id="totalPrice" data-bind="text: 'Total price: ' + totalPrice() + '$'"></div>
+    <div>
+    	<span>Choose payment method: </span>
+    	<select data-bind="options: paymentMethods(), optionsText: '_name', optionsValue: '_id', value: selectedMethod">
+        	<option data-bind="text: $data, attr: { value: $data }"></option>
+        </select>
+    </div>
+    <div>
+    	<input id="addPassenger" data-bind="click: addPassenger" type="button" class="actionButton" value="Add Passenger" />
+    	<input id="removePassenger" data-bind="click: removePassenger" type="button" class="actionButton" value="Remove Passenger" />
+    </div>
+    <h3>Please fill the passengers details:</h3>
+    <form id="orderForm" name="order" method="post" accept-charset="utf-8">
+	    <ul data-bind="foreach: passengers()">
+	        <li>
+	            <div class="passenger">
+	                <h4 data-bind="text: 'Passenger #' + ($index() + 1) + ':'"></h4>
+	                <div>
+	                    <input placeholder="Full Name" name="name" data-bind="value: name" type="text" required="required" />
+	                </div>
+	                <div>
+	                    <input placeholder="Passport" name="passport" data-bind="value: passport" type="number" required="required" />
+	                </div>
+	            </div>
+	        </li>
+	    </ul>
+	    <div>
+    		<input type="submit" class="actionButton" value="Order" >
+    	</div>
+    	<input id="hiddenOrdering" type="hidden" data-bind="click: orderClick" />
+    </form>
+    <!--div class="failureMessage" data-bind="text: failureMessage()"></div-->
+</div>
