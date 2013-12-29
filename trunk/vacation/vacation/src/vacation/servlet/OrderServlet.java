@@ -140,11 +140,11 @@ public class OrderServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = request.getPathInfo();
 
 		response.setContentType( "text/html" );
-
-		if (url != null && url.indexOf("newOrder") != -1)
+		String requestType = request.getParameter("requestType");
+		
+		if (requestType != null && requestType.compareTo("requestType") == 0)
 		{
 			try {
 				StringBuilder sb = new StringBuilder();

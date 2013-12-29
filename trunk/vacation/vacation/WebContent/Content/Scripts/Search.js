@@ -31,6 +31,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                     self.failed(true);
                 };
 
+                /*
                 var d = undefined;
                 var s = undefined;
                 if(self.source() != undefined) 
@@ -40,11 +41,11 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                 if (self.destination() != undefined)
                 {
                 	s = self.destination()._id;
-                }
+                }*/
                 	
                 
                 serverWrapper
-                    .search(d, s, self.departure(), self.maxCost())
+                    .search(self.source(), self.destination(), self.departure(), self.maxCost())
                     .success(function (result) {
                         if (!result || result.length == 0) return onFailure();
                         navigation.load('flightSearchResults', searchResultsTemplate, new flightResultsViewModel(result));
