@@ -138,21 +138,15 @@ public class OrderServlet extends HttpServlet {
 			
 			writer.print(gson.toJson(methods));
 		}
-		else if (requestType != null && requestType.indexOf("newOrder") != -1)
-		{
-			String bookingJson = request.getParameter("hotelId");
-			if (bookingJson != null && !bookingJson.isEmpty()) {
-				
-			}	
-		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		response.setContentType( "text/html" );
+		PrintWriter writer = response.getWriter();
 		BufferedReader br = request.getReader();
 		String a = br.readLine();
 		try {
@@ -188,7 +182,11 @@ public class OrderServlet extends HttpServlet {
 		    }
 		   			    
 		    // Add the order and the bookings
-		    OrdersHandler.AddOrder(orderID, user_id, lstBookings, method_id);			
+		    OrdersHandler.AddOrder(orderID, user_id, lstBookings, method_id);	
+		    
+		    String jsonAck = "{\"success\": \"success\"}";
+		    
+		    writer.print(jsonAck);	
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
