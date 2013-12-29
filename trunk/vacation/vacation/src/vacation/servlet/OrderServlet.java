@@ -164,6 +164,7 @@ public class OrderServlet extends HttpServlet {
 		    int hotelID = jObj.getInt("hotelId");
 		    
 		    JSONArray passengers = jObj.getJSONArray("passengers");
+		    int bookingID = StaticDataHandler.GetNextID("bookings");
 		    
 		    // Go over each passenger
 		    for (int i = 0; i < passengers.length(); i++)
@@ -172,7 +173,7 @@ public class OrderServlet extends HttpServlet {
 		    	JSONObject currPassenger = passengers.getJSONObject(i);
 		    	
 		    	// Get the next booking id
-			    int bookingID = StaticDataHandler.GetNextID("bookings") + i;
+			    bookingID += i;
 			    
 			    // Create the new booking
 			    Booking newBooking = new Booking(bookingID, orderID, departFlightId, returnFlightId, hotelID, nights, currPassenger.getString("name"), currPassenger.getInt("passport"));
