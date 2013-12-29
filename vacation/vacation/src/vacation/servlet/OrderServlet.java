@@ -15,13 +15,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.sql.Date;
 import java.sql.SQLException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import vacation.model.*;
 import vacation.DAL.*;
@@ -134,6 +138,13 @@ public class OrderServlet extends HttpServlet {
 			
 			writer.print(gson.toJson(methods));
 		}
+		else if (requestType != null && requestType.indexOf("newOrder") != -1)
+		{
+			String bookingJson = request.getParameter("hotelId");
+			if (bookingJson != null && !bookingJson.isEmpty()) {
+				
+			}	
+		}
 	}
 
 	/**
@@ -142,58 +153,50 @@ public class OrderServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType( "text/html" );
-		String requestType = request.getParameter("requestType");
-		
-		if (requestType != null && requestType.compareTo("requestType") == 0)
-		{
-			try {
-				StringBuilder sb = new StringBuilder();
-			    BufferedReader br = request.getReader();
-			    String str;
+		BufferedReader br = request.getReader();
+		String a = br.readLine();
+		try {
+			JSONObject jObj = new JSONObject(a);
+
+			// Build the order itself
+		    List<Booking> lstBookings = new ArrayList<Booking>();
+		    
+		    int orderID = StaticDataHandler.GetNextID("orders");
+		    int user_id = jObj.getInt("userID");
+		    int method_id = jObj.getInt("paymentMethodId");
+		    int departFlightId = jObj.getInt("departFlightId");
+		    int returnFlightId = jObj.getInt("returnFlightId");
+		    int nights = jObj.getInt("nights");
+		    int hotelID = jObj.getInt("hotelId");
+		    
+		    JSONArray passengers = jObj.getJSONArray("passengers");
+		    
+		    // Go over each passenger
+		    for (int i = 0; i < passengers.length(); i++)
+		    {
+		    	// Get the current passenger
+		    	JSONObject currPassenger = passengers.getJSONObject(i);
+		    	
+		    	// Get the next booking id
+			    int bookingID = StaticDataHandler.GetNextID("bookings");
 			    
-			    while( (str = br.readLine()) != null ){
-			        sb.append(str);
-			    }    
+			    // Create the new booking
+			    Booking newBooking = new Booking(bookingID, orderID, departFlightId, returnFlightId, hotelID, nights, currPassenger.getString("name"), currPassenger.getInt("passport"));
 			    
-			    // Get the JSON from the string we got from the wrapper
-			    JSONObject jObj = new JSONObject(sb.toString());
-			    
-			    // Build the order itself
-			    List<Booking> lstBookings = new ArrayList<Booking>();
-			    
-			    int orderID = StaticDataHandler.GetNextID("orders");
-			    int user_id = jObj.getInt("userID");
-			    int method_id = jObj.getInt("paymentMethodId");
-			    int departFlightId = jObj.getInt("departFlightId");
-			    int returnFlightId = jObj.getInt("returnFlightId");
-			    int nights = jObj.getInt("nights");
-			    int hotelID = jObj.getInt("hotelId");
-			    
-			    JSONArray passengers = jObj.getJSONArray("passengers");
-			    
-			    // Go over each passenger
-			    for (int i = 0; i < passengers.length(); i++)
-			    {
-			    	// Get the current passenger
-			    	JSONObject currPassenger = passengers.getJSONObject(i);
-			    	
-			    	// Get the next booking id
-				    int bookingID = StaticDataHandler.GetNextID("bookings");
-				    
-				    // Create the new booking
-				    Booking newBooking = new Booking(bookingID, orderID, departFlightId, returnFlightId, hotelID, nights, currPassenger.getString("name"), currPassenger.getInt("passport"));
-				    
-				    // Add it to the list
-				    lstBookings.add(newBooking);
-			    }
-			   			    
-			    // Add the order and the bookings
-			    OrdersHandler.AddOrder(orderID, user_id, lstBookings, method_id);
-				}
-			 catch (JSONException e) {
+			    // Add it to the list
+			    lstBookings.add(newBooking);
+		    }
+		   			    
+		    // Add the order and the bookings
+		    OrdersHandler.AddOrder(orderID, user_id, lstBookings, method_id);			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+	
 	}
 
 }
