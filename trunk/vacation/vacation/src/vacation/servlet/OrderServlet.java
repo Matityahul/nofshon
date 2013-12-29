@@ -172,7 +172,7 @@ public class OrderServlet extends HttpServlet {
 		    	JSONObject currPassenger = passengers.getJSONObject(i);
 		    	
 		    	// Get the next booking id
-			    int bookingID = StaticDataHandler.GetNextID("bookings");
+			    int bookingID = StaticDataHandler.GetNextID("bookings") + i;
 			    
 			    // Create the new booking
 			    Booking newBooking = new Booking(bookingID, orderID, departFlightId, returnFlightId, hotelID, nights, currPassenger.getString("name"), currPassenger.getInt("passport"));
