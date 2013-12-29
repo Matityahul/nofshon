@@ -41,6 +41,7 @@ $("#orderForm").submit(function() {
 	    </ul>
 	    <div>
     		<input type="submit" class="actionButton" value="Order" >
+    		<input data-bind="click: back" type="button" class="actionButton back" value="Back" />
     	</div>
     	<input id="hiddenOrdering" type="hidden" data-bind="click: orderClick" />
     </form>

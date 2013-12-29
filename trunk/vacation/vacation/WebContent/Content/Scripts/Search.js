@@ -41,7 +41,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
             };
         };
 
-        function flightResultsViewModel(results, isReturnFlight) {
+        function flightResultsViewModel(results, isReturnFlight, callback) {
         	
         	this.results = ko.observableArray();
             for (var i = 0; i < results.length; ++i) {
@@ -54,7 +54,19 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                 this.results.push(itemModel);
             }
             
+            self.callback = function (){
+            	navigation.load('flightSearchResults', searchResultsTemplate, new flightResultsViewModel(results, isReturnFlight, callback));
+            };
+            
             self.hotelsFailed = ko.observable(false);
+            
+            self.back = function (){
+    			if (callback) {
+    				callback();
+    			} else {
+    				container.bind();
+    			}	
+            };
             
         	if (isReturnFlight)
         	{
@@ -72,7 +84,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
 						self.returnFlight = ko.observable(_returnFlight);
 						self.hotel = ko.observable(_hotel);
 						self.nightsCount = ko.observable(_nightsCount);
-	                    newOrder.Order(self);
+	                    newOrder.Order(self, self.callback);
 	                }
 	            };
         	}
@@ -90,7 +102,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                 		.hotelsByFlight(_departFlight.flightId())
 	                    .success(function (result) {
 	                        if (!result || result.length == 0) return onHotelsFailure();
-	                        navigation.load('hotelSearchResults', hotelResultsTemplate, new hotelResultsViewModel(result));
+	                        navigation.load('hotelSearchResults', hotelResultsTemplate, new hotelResultsViewModel(result, self.callback));
 	                    })
 	                    .error(onHotelsFailure);
                 };
@@ -128,7 +140,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
         	$('#nextStep:hidden').fadeIn();
         };
         
-        function hotelResultsViewModel(results) {
+        function hotelResultsViewModel(results, callback) {
 
             this.results = ko.observableArray();
             for (var i = 0; i < results.length; ++i) {
@@ -141,7 +153,15 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                 this.results.push(itemModel);
             }
             
+            self.callback = function (){
+            	navigation.load('hotelSearchResults', hotelResultsTemplate, new hotelResultsViewModel(results, callback));
+            };
+            
             self.flightsFailed = ko.observable(false);
+            
+            self.backToFlight = function (){
+            	callback();
+            };
             
             self.continueToFlight = function (){
             	
@@ -153,7 +173,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
 	                .returnFlights(_departFlight.flightId(), _nightsCount)
 	                .success(function (result) {
 	                    if (!result || result.length == 0) return onFlightsFailure();
-	                    navigation.load('flightSearchResults', searchResultsTemplate, new flightResultsViewModel(result, true));
+	                    navigation.load('flightSearchResults', searchResultsTemplate, new flightResultsViewModel(result, true, self.callback));
 	                })
 	                .error(onFlightsFailure);
             };

@@ -3,7 +3,7 @@ define(['text!html/newOrder.html', 'css!styles/orders.css', 'js/authentication',
         var container = this;
         var allPaymentMethods = serverWrapper.getAllPaymentMethods();
 
-        function newOrderViewModel(order) {
+        function newOrderViewModel(order, callback) {
             var self = this;
 
             var priceForPassenger = (order.hotel().cost() * order.nightsCount()) + order.departFlight().cost() + order.returnFlight().cost(); 
@@ -66,6 +66,12 @@ define(['text!html/newOrder.html', 'css!styles/orders.css', 'js/authentication',
 	                });
 	                
             };
+            
+            self.back = function (){
+    			if (callback) {
+    				callback();
+    			}
+            };
         };
         
         function passengerViewModel() {
@@ -73,8 +79,8 @@ define(['text!html/newOrder.html', 'css!styles/orders.css', 'js/authentication',
             this.passport = ko.observable();
         };
         
-        container.Order = function (order) {
-            navigation.load('newOrder', template, new newOrderViewModel(order));
+        container.Order = function (order, callback) {
+            navigation.load('newOrder', template, new newOrderViewModel(order, callback));
         };
     };
 });

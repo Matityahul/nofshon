@@ -47,14 +47,21 @@
  	background-color: rgba(250,250,250,0.5);
  }
 
- .continue
+ .navigate
  {
  	position: fixed;
  	bottom: 60px;
  	height: 30px;
-	width: 110px;
+	width: 100%;
  	z-index: 9;
  }
+ 
+	 .navigate input
+	 {
+	 	position: relative;
+	 	height: 100%;
+	 	width: 110px;
+	 }
  
  .errorMessage
  {
