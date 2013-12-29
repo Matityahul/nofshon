@@ -20,7 +20,10 @@
             </div>
         </li>
     </ul>
-    <input id="continueToFlight" data-bind="click: continueToFlight" style="display: none" type="button" class="actionButton continue" value="Continue" />
+    <div class="navigate">
+    	<input id="backToFlight" data-bind="click: backToFlight" type="button" class="actionButton back" value="Back" />
+    	<input id="continueToFlight" data-bind="click: continueToFlight" style="display: none" type="button" class="actionButton continue" value="Continue" />
+    </div>
     <div class="errorMessage">			  
 		<span data-bind="visible: flightsFailed()">Failed to fetch suitable flights</span>
 	</div>

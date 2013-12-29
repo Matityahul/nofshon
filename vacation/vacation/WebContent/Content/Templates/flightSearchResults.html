@@ -14,7 +14,10 @@
             </div>
         </li>
     </ul>
-    <input id="nextStep" data-bind="click: nextStep" style="display: none" type="button" class="actionButton continue" value="Continue" />
+    <div class="navigate">
+    	<input id="backStep" data-bind="click: back" type="button" class="actionButton back" value="Back" />
+    	<input id="nextStep" data-bind="click: nextStep" style="display: none" type="button" class="actionButton continue" value="Continue" />
+    </div>
     <div class="errorMessage">			  
 		<span data-bind="visible: hotelsFailed()">Failed to fetch suitable hotels</span>
 	</div>
