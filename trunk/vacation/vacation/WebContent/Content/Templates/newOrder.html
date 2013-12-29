@@ -44,5 +44,7 @@ $("#orderForm").submit(function() {
     	</div>
     	<input id="hiddenOrdering" type="hidden" data-bind="click: orderClick" />
     </form>
-    <!--div class="failureMessage" data-bind="text: failureMessage()"></div-->
+    <div class="errorMessage">			  
+		<span data-bind="visible: orderFailed()">Failed to commit your order :(</span>
+	</div>
 </div>

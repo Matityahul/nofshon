@@ -55,3 +55,14 @@
 	width: 110px;
  	z-index: 9;
  }
+ 
+ .errorMessage
+ {
+ 	padding-left: 10%;
+ 	font-size: large;
+ 	color: red;
+	font-weight: bold;
+ 	position: fixed;
+ 	bottom: 100px;
+ 	z-index: 9;
+ }
