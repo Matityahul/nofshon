@@ -54,13 +54,15 @@ define(['text!html/newOrder.html', 'css!styles/orders.css', 'js/authentication',
             self.returnFlightId = ko.observable(order.returnFlight().flightId());
             self.hotelId = ko.observable(order.hotel().hotelId());
             
+            self.orderFailed = ko.observable(false);
+            
             self.orderClick = function () {
             	serverWrapper
 	                .order(self).success(function () {
 	                    alert('Your order submited sucessfully!');
 	                    location.reload();
 	                }).error(function () {
-	                    //self.failureMessage('Fatal error occured');
+	                    self.orderFailed(true);
 	                });
 	                
             };

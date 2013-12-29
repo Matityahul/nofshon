@@ -30,20 +30,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                 var onFailure = function () {
                     self.failed(true);
                 };
-
-                /*
-                var d = undefined;
-                var s = undefined;
-                if(self.source() != undefined) 
-                { 
-                	d = self.source()._id;
-                }
-                if (self.destination() != undefined)
-                {
-                	s = self.destination()._id;
-                }*/
                 	
-                
                 serverWrapper
                     .search(self.source(), self.destination(), self.departure(), self.maxCost())
                     .success(function (result) {
@@ -66,6 +53,8 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
 
                 this.results.push(itemModel);
             }
+            
+            self.hotelsFailed = ko.observable(false);
             
         	if (isReturnFlight)
         	{
@@ -94,7 +83,7 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
         		self.nextStep = function (){
                 	
                 	var onHotelsFailure = function () {
-                        //self.hotelsFailed(true);
+                        self.hotelsFailed(true);
                     };
                 	
                 	serverWrapper
@@ -152,10 +141,12 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                 this.results.push(itemModel);
             }
             
+            self.flightsFailed = ko.observable(false);
+            
             self.continueToFlight = function (){
             	
             	var onFlightsFailure = function () {
-                    //self.hotelsFailed(true);
+                    self.flightsFailed(true);
                 };
             	
             	serverWrapper
