@@ -96,6 +96,63 @@ public class UsersHandler {
 	}
 	
 	
+	public static User GetUser(Integer id)
+	{
+		User user = null;
+		boolean firstRow = true;
+		
+		Connection conn = DBConn.getConnection();
+		String sql = "SELECT u.ID User_ID, u.UserName, u.Password, u.Registration_Date, " + 
+							"u.First_Name, u.Last_Name, u.Address, u.Email, u.Phone, " + 
+							"o.ID Order_ID, o.Method_ID, o.Order_Time " +
+					 "FROM users u LEFT OUTER JOIN orders o ON u.ID=o.User_ID " +
+					 "WHERE u.ID=?";
+		
+		try (java.sql.PreparedStatement st = conn.prepareStatement(sql)) {
+			st.clearParameters();
+			st.setInt(1,id);
+			
+			ResultSet resultSet = st.executeQuery();
+
+			while (resultSet.next()) {
+				
+				if (firstRow)
+				{
+					firstRow = false;
+					
+					int userID = resultSet.getInt("User_ID");
+					Date regDate = resultSet.getDate("Registration_Date");
+					String userName = resultSet.getString("UserName");
+					String password = resultSet.getString("Password");
+					String firstName = resultSet.getString("First_Name");
+					String lastName = resultSet.getString("Last_Name");
+					String address = resultSet.getString("Address");
+					String email = resultSet.getString("Email");
+					String phone = resultSet.getString("Phone");
+					
+					user = new User(userID, userName, password, address, phone, 
+							regDate, firstName, lastName, email);
+					
+					// Check whether the user has no orders 
+					if (resultSet.getInt("Order_ID") != 0)
+					{
+						user.AddOrder(CreateOrder(resultSet));
+					}
+				}
+				else
+				{
+					user.AddOrder(CreateOrder(resultSet));
+				}
+			}
+			
+			
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+		
+		return user;
+	}
+	
 	public static User GetUser(String userName, String password)
 	{
 		User user = null;

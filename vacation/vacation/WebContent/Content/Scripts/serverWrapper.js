@@ -1,6 +1,10 @@
 define(function () {
     return new function () {
         var wrapper = this;
+        
+        wrapper.getLoggedInUser = function () {
+            return wrapper.get('/vacation/CookieServlet');
+        };
 
         wrapper.authenticate = function (userName, password) {
             var data = {

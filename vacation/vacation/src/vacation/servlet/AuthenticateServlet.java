@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,6 +70,12 @@ public class AuthenticateServlet extends HttpServlet {
 			if (user != null)
 			{
 				writer.print("{\"status\":1, \"data\":" +gson.toJson(user) + "}");
+				
+				Cookie userIdCookie = new Cookie("UserID", "" + user.get_id());
+				userIdCookie.setMaxAge(60*60*24*14); // 14 days
+				userIdCookie.setPath("/");
+				response.addCookie(userIdCookie);
+				
 			}
 			else
 			{
@@ -107,7 +114,12 @@ public class AuthenticateServlet extends HttpServlet {
 				
 				writer.print("{\"status\":0, \"data\":" +gson.toJson(newUser) + "}");
 			}
+			
 			writer.print("{\"status\":1, \"data\":" +gson.toJson(newUser) + "}");
+			Cookie userIdCookie = new Cookie("UserID", "" + newUser.get_id());
+			userIdCookie.setMaxAge(60*60*24*14); // 14 days
+			userIdCookie.setPath("/");
+			response.addCookie(userIdCookie);
 		}
 	}
 
