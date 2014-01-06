@@ -1,13 +1,38 @@
 define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/navigation', 'js/serverWrapper', 'knockoutjs'], function (template, _style, navigation, serverWrapper, ko) {
     return new function () {
         var container = this;
-
+        
+        container.userLoaded = $.Callbacks();
         container.user = null;
         container.isLoggedIn = false;
 
         container.getUserID = function () {
             return container.user._id;
         };
+        
+        container.logoff = function () {
+        	container.user = null;
+
+            var deleteCookie = function (name) {
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            };
+
+            deleteCookie('UserID');
+            location.reload();
+        };
+        
+        serverWrapper
+        .getLoggedInUser()
+        .success(function (user) {
+            if ($.isEmptyObject(user)) return;
+
+           // presenter.user = user;
+           // presenter.userLoaded.fire(user.first_name || user.name);
+        	container.isLoggedIn = true;
+        	container.user = user;
+        	$('#connectedUser span').text('Hello ' + container.user._userName);
+            callback();
+        });
 
         function viewModel(callback) {
             var self = this;
