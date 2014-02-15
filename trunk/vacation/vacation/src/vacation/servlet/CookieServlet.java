@@ -40,7 +40,7 @@ public class CookieServlet extends HttpServlet {
 		response.setContentType( "text/html" ); 
 		Cookie[] cookies = request.getCookies();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		String id = "";
+		String id = null;
 		
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {

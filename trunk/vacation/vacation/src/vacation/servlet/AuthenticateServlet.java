@@ -122,5 +122,4 @@ public class AuthenticateServlet extends HttpServlet {
 			response.addCookie(userIdCookie);
 		}
 	}
-
 }
