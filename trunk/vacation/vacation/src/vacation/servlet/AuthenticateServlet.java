@@ -73,7 +73,7 @@ public class AuthenticateServlet extends HttpServlet {
 				
 				Cookie userIdCookie = new Cookie("UserID", "" + user.get_id());
 				userIdCookie.setMaxAge(60*60*24*14); // 14 days
-				userIdCookie.setPath("/");
+				userIdCookie.setPath("/vacation");
 				response.addCookie(userIdCookie);
 				
 			}
@@ -118,7 +118,7 @@ public class AuthenticateServlet extends HttpServlet {
 			writer.print("{\"status\":1, \"data\":" +gson.toJson(newUser) + "}");
 			Cookie userIdCookie = new Cookie("UserID", "" + newUser.get_id());
 			userIdCookie.setMaxAge(60*60*24*14); // 14 days
-			userIdCookie.setPath("/");
+			userIdCookie.setPath("/vacation");
 			response.addCookie(userIdCookie);
 		}
 	}
