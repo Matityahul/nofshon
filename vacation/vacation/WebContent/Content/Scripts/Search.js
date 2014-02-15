@@ -1,4 +1,4 @@
-define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'text!html/hotelSearchResults.html', 'css!styles/search.css', 'js/navigation', 'js/authentication', 'js/serverWrapper', 'js/newOrder', 'knockoutjs'], function (searchTemplate, searchResultsTemplate, hotelResultsTemplate, _style, navigation, authentication, serverWrapper, newOrder, ko) {
+define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'text!html/hotelSearchResults.html', 'text!html/searchHistory.html', 'css!styles/search.css', 'js/navigation', 'js/authentication', 'js/serverWrapper', 'js/newOrder', 'js/dbWrapper', 'knockoutjs'], function (searchTemplate, searchResultsTemplate, hotelResultsTemplate, searchHistoryTemplate, _style, navigation, authentication, serverWrapper, newOrder, dbWrapper, ko) {
     return new function () {
         var container = this;
         var allDestinations = serverWrapper.getAllDestinations();
@@ -35,10 +35,46 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
                     .search(self.source(), self.destination(), self.departure(), self.maxCost())
                     .success(function (result) {
                         if (!result || result.length == 0) return onFailure();
+                        dbWrapper.saveSearch(self.source(), self.destination(), self.departure(), self.maxCost());
                         navigation.load('flightSearchResults', searchResultsTemplate, new flightResultsViewModel(result));
                     })
                     .error(onFailure);
             };
+            
+            self.history = function () {
+            	navigation.load('searchHistory', searchHistoryTemplate, new historyViewModel());
+            };
+        };
+        
+        function historyViewModel() {
+            var self = this;
+
+            self.results = ko.observableArray();
+
+            dbWrapper.getSearches(function (results) {
+                results.forEach(function (item) {
+                    item.click = function () {
+                        lastSearch.source(item.source);
+                        lastSearch.destination(item.destination);
+                        lastSearch.departure(item.departure);
+                        lastSearch.maxCost(item.maxCost);
+                        
+                        // Replace the string 'undefined' with "real" undefined 
+                        if (lastSearch.departure() == 'undefined'){
+                        	lastSearch.departure = ko.observable();
+                        }
+                        
+                        // Replace the string 'undefined' with "real" undefined 
+                        if (lastSearch.maxCost() == 'undefined'){
+                        	lastSearch.maxCost = ko.observable();
+                        }
+                        
+                        container.bind();
+                    };
+                    
+                    self.results.push(item);
+                });
+            });
         };
 
         function flightResultsViewModel(results, isReturnFlight, callback) {

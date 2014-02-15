@@ -2,7 +2,6 @@ define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/na
     return new function () {
         var container = this;
         
-        container.userLoaded = $.Callbacks();
         container.user = null;
         container.isLoggedIn = false;
 
@@ -10,28 +9,14 @@ define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/na
             return container.user._id;
         };
         
-        container.logoff = function () {
-        	container.user = null;
-
-            var deleteCookie = function (name) {
-                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            };
-
-            deleteCookie('UserID');
-            location.reload();
-        };
-        
         serverWrapper
         .getLoggedInUser()
         .success(function (user) {
             if ($.isEmptyObject(user)) return;
 
-           // presenter.user = user;
-           // presenter.userLoaded.fire(user.first_name || user.name);
         	container.isLoggedIn = true;
         	container.user = user;
         	$('#connectedUser span').text('Hello ' + container.user._userName);
-            callback();
         });
 
         function viewModel(callback) {
@@ -97,6 +82,18 @@ define(['text!html/authentication.html', 'css!styles/authentication.css', 'js/na
             };
         }
 
+        container.logout = function () {
+        	container.user = null;
+        	container.isLoggedIn = false;
+
+            var deleteCookie = function (name) {
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            };
+            
+            deleteCookie('UserID');
+            location.reload();
+        };
+        
         container.authenticate = function (callback) {
             navigation.load('authentication', template, new viewModel(callback));
         };

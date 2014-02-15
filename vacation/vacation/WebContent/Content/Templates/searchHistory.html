@@ -1,0 +1,17 @@
+<div id="searchHistory" class="searchResults">
+    <h2>Flight search history:</h2>
+    <ul data-bind="foreach: results()">
+        <li data-bind="click: click">
+            <div data-bind="text: 'Created at: ' + creationTime">
+            </div>
+            <div data-bind="text: 'Source: ' + source">
+            </div>
+            <div data-bind="text: 'Destination: ' + destination">
+            </div>
+            <div data-bind="text: 'Departure: ' + departure">
+            </div>
+            <div data-bind="text: 'Max Cost: ' + maxCost + '$'">
+            </div>
+        </li>
+    </ul>
+</div>

@@ -31,6 +31,10 @@ define(['text!html/personalData.html', 'css!styles/personalData.css', 'js/naviga
                     })
                     .error(onFailure);
             };
+            
+            self.logout = function () {
+            	authentication.logout();
+            };
         }
 
         container.bind = function () {
