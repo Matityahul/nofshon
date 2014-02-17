@@ -46,6 +46,15 @@ public class UsersHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 	}
 	
 	/**
@@ -72,6 +81,15 @@ public class UsersHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 	}
 	
 	/**
@@ -91,6 +109,14 @@ public class UsersHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}		}
 		
 		return rows;
 	}
@@ -149,6 +175,15 @@ public class UsersHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return user;
 	}
@@ -204,6 +239,15 @@ public class UsersHandler {
 			
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 		
 		return user;

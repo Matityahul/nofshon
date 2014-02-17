@@ -30,6 +30,15 @@ public class FlightsHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return Flights;
 	}
@@ -49,6 +58,15 @@ public class FlightsHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return name;
 	}
@@ -67,6 +85,15 @@ public class FlightsHandler {
 			name = rs.getString("Name");
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 		
 		return name;
@@ -160,6 +187,15 @@ public class FlightsHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return Flights;
 	}
@@ -201,6 +237,15 @@ public class FlightsHandler {
 		catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return flights;
 	}
@@ -222,6 +267,15 @@ public class FlightsHandler {
 		} 
 		catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 		
 		return flights;

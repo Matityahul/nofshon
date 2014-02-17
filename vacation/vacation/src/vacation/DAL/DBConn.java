@@ -16,12 +16,12 @@ import org.json.JSONObject;
  */
 public class DBConn
 {
-	static Connection conn;
+	// static Connection conn;
 	/* user name and pwd only for local testing*/
 	private static final String USER_NAME	= "root";
 	private static final String PASSWORD	= "";
 	   
-	private static void initConn()
+	private static Connection initConn()
 	{
 		try
 		{
@@ -31,20 +31,19 @@ public class DBConn
 	        
 	        String jsonEnvVars = java.lang.System.getenv("VCAP_SERVICES");
 	        if(jsonEnvVars != null){
-				parseUrlFromEnvVarsAndConnect(jsonEnvVars); 
+				return parseUrlFromEnvVarsAndConnect(jsonEnvVars); 
 			}
 			else{
 				//Runs locally - only for maintenance 
 				
 				String url = "jdbc:mysql://localhost/nofson";
 				System.out.println("Connected local host url="+url);
-				conn= DriverManager.getConnection(url, USER_NAME, PASSWORD);
 				
-				
+				return DriverManager.getConnection(url, USER_NAME, PASSWORD);
 			}
-	
-	        System.out.println((new StringBuilder("conn successed. conn=")).append(conn).toString());
 		}
+	
+	        //System.out.println((new StringBuilder("conn successed. conn=")).append(conn).toString());		}
 		
 		catch(ClassNotFoundException ex)
 	    {
@@ -54,9 +53,10 @@ public class DBConn
 	    {
 	        System.err.println((new StringBuilder("error loading:")).append(ex.getMessage()).toString());
 	    }
+		return null;
 	}
 	   
-	private static void parseUrlFromEnvVarsAndConnect(String jsonEnvVars) {
+	private static Connection parseUrlFromEnvVarsAndConnect(String jsonEnvVars) {
 		String url = "";
 		try {
 			JSONObject jsonObject = new JSONObject(jsonEnvVars);
@@ -76,23 +76,20 @@ public class DBConn
 			System.out.println("parseUrlFromEnvVarsAndConnect password="+password);
 
 			url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
-			conn = DriverManager.getConnection(url, username, password);
+			return DriverManager.getConnection(url, username, password);
 		} 
 		catch (JSONException e) {
 			System.err.println("Conn.connect: " + e.getMessage());
+			return null;
 		}
 		catch (SQLException e){
 			System.err.println("Conn.connect: " + e.getMessage());
+			return null;
 		}
 	}
 	
     public static Connection getConnection()
     {
-    	if (conn == null)
-    	{
-    		initConn();
-    	}
-    	
-    	return conn;
+    	return initConn();
     }
 }

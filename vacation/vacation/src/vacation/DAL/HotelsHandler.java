@@ -28,6 +28,15 @@ public class HotelsHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return Hotels;
 	}
@@ -46,6 +55,15 @@ public class HotelsHandler {
 			name = rs.getString("Name");
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 		
 		return name;
@@ -66,6 +84,15 @@ public class HotelsHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		return Hotels.get(0);
 	}
 	
@@ -82,6 +109,15 @@ public class HotelsHandler {
 			Hotels = extractHotelsFromRS(rs);
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 		return Hotels;
 	}
@@ -158,6 +194,15 @@ public class HotelsHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return hotels;
 	}
@@ -198,6 +243,15 @@ public class HotelsHandler {
 		} 
 		catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 		
 		return hotels;
