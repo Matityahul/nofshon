@@ -25,6 +25,15 @@ public class BookingHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		return Bookings;
 	}
 	
@@ -42,10 +51,19 @@ public class BookingHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		return Bookings.get(0);
 	}
 	
-	public static void UpdateBooking(Booking booking)
+	public static void UpdateBooking(Booking booking)  
 	{
 		Connection conn = DBConn.getConnection();
 		String sql = "update bookings set order_id = ? ,depart_flight_id = ?,return_flight_id = ? ,hotel_id = ? ,number_of_nights = ? ,name = ? ,passport_id = ? where id = ?";
@@ -63,6 +81,15 @@ public class BookingHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 	}
 	
 	public static void DeleteBookingByID(int id)
@@ -75,6 +102,15 @@ public class BookingHandler {
 			st.executeUpdate();
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 	}
 	
@@ -97,6 +133,15 @@ public class BookingHandler {
 			st.executeUpdate();
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 	}
 	

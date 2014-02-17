@@ -26,6 +26,15 @@ public class CountriesHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return Countries;
 	}

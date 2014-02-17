@@ -38,6 +38,15 @@ public class StaticDataHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return countries;
 	}
@@ -58,6 +67,15 @@ public class StaticDataHandler {
 					rs.getInt("City_ID"), rs.getString("Name"));
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 		
 		return airport;
@@ -88,6 +106,16 @@ public class StaticDataHandler {
 			System.err.println(ex.getMessage());
 		}
 		
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
+		
 		return airports;
 	}
 	
@@ -115,6 +143,15 @@ public class StaticDataHandler {
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 		
 		return cities;
 	}
@@ -133,6 +170,15 @@ public class StaticDataHandler {
 			return Integer.parseInt(o.toString());
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 		
 		
@@ -336,6 +382,15 @@ public class StaticDataHandler {
 			// TODO Auto-generated catch block
 			System.err.println(e);
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 	}
 	
 	public static void InitUsers()
@@ -354,6 +409,15 @@ public class StaticDataHandler {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e);
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 	}
 	
@@ -376,6 +440,15 @@ public class StaticDataHandler {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e);
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 	}
 	
@@ -404,6 +477,15 @@ public class StaticDataHandler {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e);
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 	}
 	
@@ -436,6 +518,15 @@ public class StaticDataHandler {
 			// TODO Auto-generated catch block
 			System.err.println(e);
 		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
+		}
 	}
 	
 	public static void InitHotels()
@@ -457,6 +548,15 @@ public class StaticDataHandler {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e);
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 	}
 	
@@ -1237,6 +1337,15 @@ public class StaticDataHandler {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println(e);
+		}
+		finally
+		{
+			try {
+				conn.close();
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				System.err.println(ex.getMessage());
+			}
 		}
 	}
 }
