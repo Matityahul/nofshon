@@ -57,7 +57,7 @@ public class CookieServlet extends HttpServlet {
 		}
 		else
 		{
-			User user = UsersHandler.GetUser(Integer.parseInt(id));
+			User user = UsersHandler.GetUser(Integer.parseInt(id), false);
 			out.write(gson.toJson(user));
 		}
 	}

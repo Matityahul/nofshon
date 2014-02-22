@@ -21,7 +21,7 @@ public class Hotel {
                 _address = address;
                 _phone = phone;
                 _cost = cost;
-                _city_name = HotelsHandler.GetCityNameByID(city_id);
+                _city_name = HotelsHandler.GetCityNameByID(city_id, false);
         }
         
         public int get_id() {

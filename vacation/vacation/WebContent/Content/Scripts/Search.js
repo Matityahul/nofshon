@@ -1,7 +1,6 @@
 define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'text!html/hotelSearchResults.html', 'text!html/searchHistory.html', 'css!styles/search.css', 'js/navigation', 'js/authentication', 'js/serverWrapper', 'js/newOrder', 'js/dbWrapper', 'knockoutjs'], function (searchTemplate, searchResultsTemplate, hotelResultsTemplate, searchHistoryTemplate, _style, navigation, authentication, serverWrapper, newOrder, dbWrapper, ko) {
     return new function () {
         var container = this;
-        var allDestinations = serverWrapper.getAllDestinations();
         var lastSearch = new searchViewModel();
         var _departFlight;
         var _returnFlight;
@@ -18,7 +17,9 @@ define(['text!html/flightSearch.html', 'text!html/flightSearchResults.html', 'te
             self.maxCost = ko.observable();
             self.failed = ko.observable(false);
             self.destinations = ko.observableArray();
-
+            
+            var allDestinations = serverWrapper.getAllDestinations();
+            
             $.when(allDestinations).then(function (desinations) {
                 if (!desinations) return;
                 for (var i = 0; i < desinations.length; ++i) {

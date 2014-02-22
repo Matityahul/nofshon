@@ -1,7 +1,6 @@
 define(['text!html/newOrder.html', 'css!styles/orders.css', 'js/authentication', 'js/navigation', 'js/serverWrapper', 'knockoutjs'], function (template, _style, authentication, navigation, serverWrapper, ko) {
     return new function () {
         var container = this;
-        var allPaymentMethods = serverWrapper.getAllPaymentMethods();
 
         function newOrderViewModel(order, callback) {
             var self = this;
@@ -23,7 +22,9 @@ define(['text!html/newOrder.html', 'css!styles/orders.css', 'js/authentication',
             self.totalPrice = ko.observable(priceForPassenger);
             
             self.paymentMethods = ko.observableArray();
-
+            
+            var allPaymentMethods = serverWrapper.getAllPaymentMethods();
+            
             $.when(allPaymentMethods).then(function (paymentMethods) {
                 if (!paymentMethods) return;
                 for (var i = 0; i < paymentMethods.length; ++i) {

@@ -30,12 +30,7 @@ public class OrdersHandler {
 			}
 			finally
 			{
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
-					System.err.println(ex.getMessage());
-				}
+				DBConn.CloseConnection();
 			}
 			
 			return Orders;
@@ -55,12 +50,7 @@ public class OrdersHandler {
 			}
 			finally
 			{
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
-					System.err.println(ex.getMessage());
-				}
+				DBConn.CloseConnection();
 			}
 			
 			return Methods;
@@ -82,12 +72,7 @@ public class OrdersHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		return Orders.get(0);
 		
@@ -109,12 +94,7 @@ public class OrdersHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		return Orders;
 		
@@ -134,19 +114,14 @@ public class OrdersHandler {
 			st.executeUpdate();
 			for (int i = 0; i<bookings.size();i++)
 			{
-				BookingHandler.AddBookingToOrder(id, bookings.get(i));
+				BookingHandler.AddBookingToOrder(id, bookings.get(i), false);
 			}
 		} catch (SQLException ex) {
 			System.err.println(ex.getMessage());
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -154,14 +129,14 @@ public class OrdersHandler {
 	{
 		String sql = "DELETE FROM orders where ID = ?";
 
-		return DeleteOrders(id, sql);
+		return DeleteOrders(id, sql, true);
 	}
 	
-	public static int DeleteOrdersByUserID(int userID)
+	public static int DeleteOrdersByUserID(int userID, boolean closeConnection)
 	{
 		String sql = "DELETE FROM orders where User_ID = ?";
 
-		return DeleteOrders(userID, sql);
+		return DeleteOrders(userID, sql, closeConnection);
 	}
 	
 	
@@ -171,7 +146,7 @@ public class OrdersHandler {
 	 * @param sql 'Delete' sql statement
 	 * @return
 	 */
-	private static int DeleteOrders(int id, String sql)
+	private static int DeleteOrders(int id, String sql, boolean closeConnection)
 	{
 		Connection conn = DBConn.getConnection();
 		
@@ -185,11 +160,9 @@ public class OrdersHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
+			if(closeConnection)
+			{
+				DBConn.CloseConnection();
 			}
 		}
 		

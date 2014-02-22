@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -57,19 +58,22 @@ public class StaticInfoServlet extends HttpServlet {
 		{
 			ArrayList<String> src = new ArrayList<String>();
 			ArrayList<Airport> src2 = new ArrayList<Airport>();
-			List<Flight> flights = new ArrayList<Flight>();;
+			List<Flight> flights = new ArrayList<Flight>();
+			
 			try 
 			{
-				flights = FlightsHandler.GetAllFlights();
+				flights = FlightsHandler.GetAllFlights(false);
 			} 
 			catch (Exception e) 
 			{
 				e.printStackTrace();
 			}
-			for (Flight flight : flights) {
+			
+			for (Iterator<Flight> it = flights.iterator(); it.hasNext(); ) {
+				Flight flight = it.next();
 				int fromAirport = flight.get_from_airport();
-				String fromAirportName = StaticDataHandler.GetAirportNameByID(fromAirport);
-				Airport currAirport = StaticDataHandler.GetAirportByID(fromAirport);
+				String fromAirportName = flight.get_from_airportName();
+				Airport currAirport = StaticDataHandler.GetAirportByID(fromAirport, !it.hasNext());
 
 				if (!src.contains(fromAirportName))
 				{
@@ -77,6 +81,7 @@ public class StaticInfoServlet extends HttpServlet {
 					src2.add(currAirport);
 				}
 			}
+			
 			writer.print(gson.toJson(src2));
 		}
     }

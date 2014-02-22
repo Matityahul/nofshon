@@ -27,13 +27,9 @@ public class BookingHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
+		
 		return Bookings;
 	}
 	
@@ -53,13 +49,9 @@ public class BookingHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
+		
 		return Bookings.get(0);
 	}
 	
@@ -83,12 +75,7 @@ public class BookingHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -105,16 +92,11 @@ public class BookingHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
-	public static void AddBookingToOrder(int orderID, Booking booking)
+	public static void AddBookingToOrder(int orderID, Booking booking, boolean closeConnection)
 	{
 		Connection conn = DBConn.getConnection();
 		String sql = "INSERT bookings(id, order_id, depart_flight_id, return_flight_id, hotel_id, number_of_nights,name,passport_id)"
@@ -136,11 +118,9 @@ public class BookingHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
+			if (closeConnection)
+			{
+				DBConn.CloseConnection();
 			}
 		}
 	}
