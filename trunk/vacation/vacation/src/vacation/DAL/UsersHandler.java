@@ -48,12 +48,7 @@ public class UsersHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -83,12 +78,7 @@ public class UsersHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -97,7 +87,7 @@ public class UsersHandler {
 	 */
 	public static int DeleteUser(User user)
 	{
-		int rows = OrdersHandler.DeleteOrdersByUserID(user.get_id());
+		int rows = OrdersHandler.DeleteOrdersByUserID(user.get_id(), false);
 		
 		Connection conn = DBConn.getConnection();
 		String sql = "DELETE FROM users WHERE ID=?";
@@ -111,18 +101,14 @@ public class UsersHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}		}
+			DBConn.CloseConnection();
+		}
 		
 		return rows;
 	}
 	
 	
-	public static User GetUser(Integer id)
+	public static User GetUser(Integer id, boolean closeConnection)
 	{
 		User user = null;
 		boolean firstRow = true;
@@ -177,11 +163,9 @@ public class UsersHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
+			if (closeConnection)
+			{
+				DBConn.CloseConnection();
 			}
 		}
 		
@@ -242,12 +226,7 @@ public class UsersHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return user;

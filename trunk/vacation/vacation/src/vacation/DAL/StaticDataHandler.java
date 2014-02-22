@@ -40,18 +40,13 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return countries;
 	}
 	
-	public static Airport GetAirportByID(int id)
+	public static Airport GetAirportByID(int id, boolean closeConnection)
 	{
 		Airport airport = null;
 		
@@ -70,11 +65,9 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
+			if (closeConnection)
+			{
+				DBConn.CloseConnection();
 			}
 		}
 		
@@ -108,12 +101,7 @@ public class StaticDataHandler {
 		
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return airports;
@@ -145,12 +133,7 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return cities;
@@ -173,29 +156,13 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		
 		return -1;
 	}
 	
-	public static String GetAirportNameByID(int id)
-	{
-		List<Airport> airports = GetAllAirports();
-		for (int i = 0; i < airports.size(); i++)
-		{
-			if (airports.get(i).get_id() == id)
-				return airports.get(i).getName();
-		}
-		
-		return "";
-	}
 	
 	public static void BuildDB()
 	{
@@ -384,12 +351,7 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -412,12 +374,7 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -443,12 +400,7 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -480,12 +432,7 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -520,12 +467,7 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -551,12 +493,7 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 	
@@ -1340,12 +1277,7 @@ public class StaticDataHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 	}
 }

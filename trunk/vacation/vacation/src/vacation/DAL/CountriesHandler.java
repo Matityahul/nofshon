@@ -28,12 +28,7 @@ public class CountriesHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return Countries;

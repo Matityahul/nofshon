@@ -97,7 +97,7 @@ public class VacationHandleServlet extends HttpServlet {
     			// We need to insert a new booking
     	        Booking newBooking = new Booking(newBookingID, orderID, depart_flight, return_flight, hotelID, nights, name, passport);
     			
-    	        BookingHandler.AddBookingToOrder(orderID, newBooking);
+    	        BookingHandler.AddBookingToOrder(orderID, newBooking, true);
     	        
     			// Convert Booking to JSON and return it
     			out.print(gson.toJson(newBooking));

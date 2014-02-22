@@ -18,7 +18,7 @@ public class FlightsHandler {
 	 * Get all the flight from the DB
 	 * @return All the flights
 	 */
-	public static List<Flight> GetAllFlights()
+	public static List<Flight> GetAllFlights(boolean closeConnection)
 	{
 		List<Flight> Flights = new ArrayList<Flight>();
 		Connection conn = DBConn.getConnection();
@@ -32,18 +32,16 @@ public class FlightsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
+			if (closeConnection)
+			{
+				DBConn.CloseConnection();
 			}
 		}
 		
 		return Flights;
 	}
 	
-	public static String GetAirlineNameByID(int id)
+	public static String GetAirlineNameByID(int id, boolean closeConnection)
 	{
 		Connection conn = DBConn.getConnection();
 		String sql = "SELECT Name FROM airlines where id = ?";
@@ -60,18 +58,16 @@ public class FlightsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
+			if (closeConnection)
+			{
+				DBConn.CloseConnection();
 			}
 		}
 		
 		return name;
 	}
 	
-	public static String GetAirportNameByID(int id)
+	public static String GetAirportNameByID(int id, boolean closeConnection)
 	{
 		Connection conn = DBConn.getConnection();
 		String sql = "SELECT Name FROM airports where id = ?";
@@ -88,11 +84,9 @@ public class FlightsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
+			if (closeConnection)
+			{
+				DBConn.CloseConnection();
 			}
 		}
 		
@@ -189,12 +183,7 @@ public class FlightsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return Flights;
@@ -239,12 +228,7 @@ public class FlightsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return flights;
@@ -270,12 +254,7 @@ public class FlightsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return flights;

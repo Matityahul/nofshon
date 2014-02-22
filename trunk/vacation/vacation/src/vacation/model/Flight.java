@@ -33,9 +33,9 @@ public class Flight {
                 _to_airport = to_airport;
                 _departure_time = departure_time2;
                 _arrival_time = arrival_time2;
-                _name = FlightsHandler.GetAirlineNameByID(airline_id);
-                _depart_name = FlightsHandler.GetAirportNameByID(from_airport);
-                _arrival_name = FlightsHandler.GetAirportNameByID(to_airport);
+                _name = FlightsHandler.GetAirlineNameByID(airline_id, false);
+                _depart_name = FlightsHandler.GetAirportNameByID(from_airport, false);
+                _arrival_name = FlightsHandler.GetAirportNameByID(to_airport, false);
                 
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
                 _long_format_time = df.format(departure_time2);
@@ -65,6 +65,14 @@ public class Flight {
                 return _to_airport;
         }
 
+        public String get_from_airportName() {
+            return _depart_name;
+        }
+
+
+	    public String get_to_airportName() {
+	            return _arrival_name;
+	    }
 
         public Date get_departure_time() {
                 return _departure_time;

@@ -30,18 +30,13 @@ public class HotelsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return Hotels;
 	}
 	
-	public static String GetCityNameByID(int id)
+	public static String GetCityNameByID(int id, boolean closeConnection)
 	{
 		Connection conn = DBConn.getConnection();
 		String sql = "SELECT Name FROM cities where id = ?";
@@ -58,11 +53,9 @@ public class HotelsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
+			if (closeConnection)
+			{
+				DBConn.CloseConnection();
 			}
 		}
 		
@@ -86,13 +79,9 @@ public class HotelsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
+		
 		return Hotels.get(0);
 	}
 	
@@ -112,13 +101,9 @@ public class HotelsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
+		
 		return Hotels;
 	}
 
@@ -196,12 +181,7 @@ public class HotelsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return hotels;
@@ -246,12 +226,7 @@ public class HotelsHandler {
 		}
 		finally
 		{
-			try {
-				conn.close();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				System.err.println(ex.getMessage());
-			}
+			DBConn.CloseConnection();
 		}
 		
 		return hotels;
